@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+:root {
+  --primary: #6c5ce7;
+  --primary-light: #a29bfe;
+  --accent: #ff7675;
+  --bg-top: #f8f9ff;
+  --bg-bottom: #e0e7ff;
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --text-dark: #2d3436;
+  --text-light: #636e72;
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.05);
+  --shadow-strong: 0 30px 60px rgba(108, 92, 231, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-top);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+/* 움직이는 배경 구체 효과 */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.4;
+  animation: float 20s infinite alternate;
+}
+
+body::before {
+  background: var(--primary-light);
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  background: var(--accent);
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, 50px) scale(1.1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1.5); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

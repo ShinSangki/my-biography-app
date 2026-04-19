@@ -1,0 +1,473 @@
+/* 고령자 친화적 디자인을 위한 CSS 변수 */
+:root {
+  --primary: #6C5CE7;
+  --primary-light: #A29BFE;
+  --accent: #FD79A8;
+  --text-dark: #2D3436;
+  --text-light: #636E72;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --bg-gradient: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+}
+
+/* 슬라이딩 페이지를 위한 앱 컨테이너 */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-gradient);
+  display: flex;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s ease-in-out, opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page.active {
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 메인 카드 */
+.app-card {
+  width: 90%;
+  max-width: 480px;
+  min-height: 80vh;
+  background: var(--card-bg);
+  backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 40px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 헤더 섹션 */
+.header-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.logo-badge {
+  display: inline-block;
+  padding: 12px 20px;
+  background: rgba(108, 92, 231, 0.1);
+  color: var(--primary);
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 콘텐츠 영역 */
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  justify-content: center;
+}
+
+.instruction-text {
+  font-size: 28px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 50px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* 버튼 */
+.action-circle-btn {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: 60px;
+  box-shadow: 0 15px 35px rgba(108, 92, 231, 0.4);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.action-circle-btn:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 20px 45px rgba(108, 92, 231, 0.5);
+}
+
+.action-circle-btn.recording {
+  background: #D63031;
+  box-shadow: 0 15px 35px rgba(214, 48, 49, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+.btn-caption {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: -0.2px;
+}
+
+/* 녹음 시각화 */
+.visualizer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 60px;
+  margin-bottom: 30px;
+}
+
+.wave-bar {
+  width: 6px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 10px;
+  animation: wave 1s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.1s; height: 35px; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; height: 50px; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; height: 35px; }
+.wave-bar:nth-child(5) { animation-delay: 0.4s; height: 20px; }
+
+.timer-display {
+  font-size: 80px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.recording-label {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-light);
+  padding: 18px 30px;
+  border-radius: 100px;
+  border: 2px solid var(--glass-border);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text-dark);
+}
+
+/* 처리 로더 */
+.premium-loader {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.loader-ring {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 6px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--primary) transparent transparent transparent;
+}
+
+/* 목록 컨테이너 */
+.list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+  font-size: 28px;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.card small {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-top: 12px;
+  display: block;
+  font-weight: 600;
+}
+
+/* 결과 폼 */
+.result-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  animation: fadeIn 0.6s ease;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.premium-input {
+  background: rgba(255, 255, 255, 0.6);
+  border: 3px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 24px 26px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: all 0.3s;
+}
+
+.premium-input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--primary-light);
+  box-shadow: 0 10px 25px rgba(108, 92, 231, 0.1);
+}
+
+.premium-textarea {
+  min-height: 300px;
+  resize: none;
+  line-height: 1.8;
+}
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.button-row {
+  display: flex;
+  gap: 14px;
+}
+
+.button-row button {
+  flex: 1;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 28px;
+  border-radius: 20px;
+  border: none;
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(108, 92, 231, 0.4);
+}
+
+.btn-danger {
+  background: #E17055;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-danger:hover {
+  background: #D63031;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave {
+  0%, 100% { height: 20px; }
+  50% { height: 60px; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 480px) {
+  .app-card {
+    padding: 35px;
+    min-height: 90vh;
+  }
+  .main-title {
+    font-size: 42px;
+  }
+  .instruction-text {
+    font-size: 24px;
+  }
+  .action-circle-btn {
+    width: 160px;
+    height: 160px;
+    font-size: 50px;
+  }
+  .timer-display {
+    font-size: 70px;
+  }
+  .card h3 {
+    font-size: 24px;
+  }
+  .card p {
+    font-size: 18px;
+  }
+  .premium-input {
+    font-size: 20px;
+    padding: 22px 24px;
+  }
+  .btn-primary {
+    font-size: 20px;
+    padding: 26px;
+  }
+  .toggle-btn {
+    font-size: 18px;
+    min-height: 65px;
+  }
+}
+
+.bottom-toggle {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.toggle-btn {
+  flex: 1;
+  min-height: 70px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  color: var(--text-dark);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(90deg, #6C5CE7 0%, #764BA2 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(108, 92, 231, 0.18);
+}
+
+.toggle-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
