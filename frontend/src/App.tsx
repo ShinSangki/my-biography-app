@@ -1,10 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
-// 타입 정의: 녹음 항목과 서버 응답 구조
-// - RecordItem: 로컬 및 서버 상태를 포함한 녹음 데이터
-// - UploadResponse 등: 백엔드 API 응답 타입
-
 type RecordItem = {
   id: string;
   createdAt: string;
@@ -53,17 +49,15 @@ type SaveMemoirResponse = {
   memoirId: number;
 };
 
-// 서버 기본 URL
-const API_BASE_URL = "http://localhost:4000";
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
 
-// 유틸 함수: 초 단위를 mm:ss 형태로 변환
 function formatTime(totalSeconds: number) {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-// 지원 가능한 오디오 MIME 타입을 확인하여 녹음에 사용할 타입 반환
 function getSupportedMimeType(): string {
   const candidates = [
     "audio/webm;codecs=opus",
@@ -82,13 +76,11 @@ function getSupportedMimeType(): string {
 }
 
 export default function App() {
-  // 녹음 처리 참조: MediaRecorder, 오디오 조각, 스트림, 타이머
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<number | null>(null);
 
-  // UI 상태: 브라우저 지원, 권한, 초기 로딩 상태
   const [isSupported, setIsSupported] = useState<boolean | null>(null);
   const [hasPermission, setHasPermission] = useState<boolean>(false);
   const [isChecking, setIsChecking] = useState(true);
@@ -97,14 +89,12 @@ export default function App() {
   const [isStopping, setIsStopping] = useState(false);
   const [recordSeconds, setRecordSeconds] = useState(0);
 
-  // 녹음 목록 및 선택된 녹음 상태
   const [records, setRecords] = useState<RecordItem[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [message, setMessage] = useState("준비되었습니다.");
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // 컴포넌트 마운트 시 초기 설정 및 정리 작업
   useEffect(() => {
     initRecorder();
 
@@ -153,7 +143,7 @@ export default function App() {
           setHasPermission(permissionStatus.state === "granted");
         }
       } catch {
-        // permissions API가 없을 경우에도 앱은 계속 실행되어야 하므로 예외 무시
+        // permissions API가 없을 경우 무시
       }
 
       setMessage("브라우저 녹음 준비가 완료되었습니다.");
@@ -167,7 +157,6 @@ export default function App() {
     }
   }
 
-  // 2) 마이크 접근 권한 요청
   async function requestPermission() {
     setError("");
 
@@ -185,7 +174,6 @@ export default function App() {
     }
   }
 
-  // 녹음 시간 표시를 위한 타이머 제어
   function startTimer() {
     stopTimer();
     timerRef.current = window.setInterval(() => {
@@ -194,14 +182,12 @@ export default function App() {
   }
 
   function stopTimer() {
-
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
     }
   }
 
-  // 3) 녹음 시작 처리
   async function handleStartRecording() {
     setError("");
 
@@ -271,7 +257,6 @@ export default function App() {
     }
   }
 
-  // 4) 녹음 중지 처리
   async function handleStopRecording() {
     if (!isRecording || isStopping) return;
 
@@ -299,7 +284,6 @@ export default function App() {
     }
   }
 
-  // 5) 녹음 항목 삭제 처리
   function handleDeleteRecord(id: string) {
     const target = records.find((item) => item.id === id);
     if (target) {
@@ -317,10 +301,11 @@ export default function App() {
   }
 
   function updateRecord(id: string, updater: (item: RecordItem) => RecordItem) {
-    setRecords((prev) => prev.map((item) => (item.id === id ? updater(item) : item)));
+    setRecords((prev) =>
+      prev.map((item) => (item.id === id ? updater(item) : item))
+    );
   }
 
-  // 서버 통신: 오디오 파일 업로드
   async function uploadAudio(blob: Blob): Promise<UploadResponse> {
     const extension = blob.type.includes("mp4")
       ? "mp4"
@@ -347,8 +332,9 @@ export default function App() {
     return response.json();
   }
 
-  // 서버 통신: 녹음 메타데이터 저장
-  async function saveRecording(audioPath: string): Promise<SaveRecordingResponse> {
+  async function saveRecording(
+    audioPath: string
+  ): Promise<SaveRecordingResponse> {
     const response = await fetch(`${API_BASE_URL}/recordings/save`, {
       method: "POST",
       headers: {
@@ -364,7 +350,6 @@ export default function App() {
     return response.json();
   }
 
-  // 서버 통신: STT(음성->텍스트) 요청
   async function requestStt(
     audioPath: string,
     recordingId: number
@@ -387,7 +372,6 @@ export default function App() {
     return response.json();
   }
 
-  // 서버 통신: 자서전 초안 생성 요청
   async function requestGenerate(text: string): Promise<GenerateResponse> {
     const response = await fetch(`${API_BASE_URL}/generate`, {
       method: "POST",
@@ -404,7 +388,6 @@ export default function App() {
     return response.json();
   }
 
-  // 서버 통신: 생성된 자서전 저장 요청
   async function saveMemoir(
     recordingId: number,
     content: string
@@ -428,7 +411,6 @@ export default function App() {
     return response.json();
   }
 
-  // 6) 녹음 처리 플로우: 업로드 -> 녹음 저장 -> STT -> 자서전 생성 -> 저장
   async function handleProcessRecord(id: string) {
     const target = records.find((item) => item.id === id);
     if (!target) return;
@@ -478,7 +460,10 @@ export default function App() {
       }));
 
       setMessage("자서전 초안을 저장하고 있습니다.");
-      const saveMemoirResult = await saveMemoir(recordingId, generateResult.memoir);
+      const saveMemoirResult = await saveMemoir(
+        recordingId,
+        generateResult.memoir
+      );
 
       updateRecord(id, (item) => ({
         ...item,
@@ -504,7 +489,6 @@ export default function App() {
     }
   }
 
-  // UI 표시용: 녹음 상태에 따른 텍스트 라벨 반환
   function getRecordStatusLabel(item: RecordItem) {
     switch (item.status) {
       case "local":
@@ -618,9 +602,7 @@ export default function App() {
             </div>
 
             {records.length === 0 ? (
-              <div style={styles.emptyCard}>
-                아직 저장된 녹음이 없습니다.
-              </div>
+              <div style={styles.emptyCard}>아직 저장된 녹음이 없습니다.</div>
             ) : (
               <div style={styles.recordList}>
                 {records.map((item, index) => (
