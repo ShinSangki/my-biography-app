@@ -7,15 +7,15 @@ import fs from "node:fs";
 import { env } from "../config/env.js";
 import { convertWebmToWav } from "../utils/audioUtils.js";
 
-const ai = new GoogleGenAI({
-  apiKey: env.geminiApiKey,
+const sttAi = new GoogleGenAI({
+  apiKey: env.geminiSttApiKey,
 });
 
 async function waitForFileActive(fileName: string, maxWaitMs = 30000) {
   const start = Date.now();
 
   while (Date.now() - start < maxWaitMs) {
-    const file = await ai.files.get({ name: fileName });
+    const file = await sttAi.files.get({ name: fileName });
     const state = String(file.state ?? "");
 
     console.log("[Gemini file state]", state);
@@ -40,7 +40,7 @@ export async function transcribeAudioFromFile(filePath: string): Promise<string>
   console.log("[STT] original file:", filePath);
   console.log("[STT] converted wav:", wavPath);
 
-  const uploadedFile = await ai.files.upload({
+  const uploadedFile = await sttAi.files.upload({
     file: wavPath,
     config: {
       mimeType: "audio/wav",
@@ -70,7 +70,7 @@ export async function transcribeAudioFromFile(filePath: string): Promise<string>
 5. 결과는 순수 전사 텍스트만 출력한다.
 `.trim();
 
-    const response = await ai.models.generateContent({
+    const response = await sttAi.models.generateContent({
       model: env.geminiSttModel,
       contents: createUserContent([
         createPartFromUri(activeFile.uri, activeFile.mimeType),
@@ -95,10 +95,11 @@ export async function transcribeAudioFromFile(filePath: string): Promise<string>
   } finally {
     try {
       if (uploadedFile.name) {
-        await ai.files.delete({ name: uploadedFile.name });
+        await sttAi.files.delete({ name: uploadedFile.name });
       }
     } catch {
-      // 무시
+      // 임시 오디오 파일 삭제 실패 시 무시합니다.
+      // 변환된 wav 파일 삭제 실패 시 무시합니다.
     }
 
     try {
@@ -109,42 +110,4 @@ export async function transcribeAudioFromFile(filePath: string): Promise<string>
       // 무시
     }
   }
-}
-
-export async function generateMemoirText(rawText: string): Promise<string> {
-  const prompt = `
-너는 자서전 초안 작성 도우미다.
-아래 구술 텍스트를 자서전 문체의 자연스러운 1인칭 서술문으로 정리해라.
-
-규칙:
-1. 원문 의미를 유지한다.
-2. 사실을 새로 지어내지 않는다.
-3. 지나치게 문학적으로 과장하지 않는다.
-4. 문장을 매끄럽게 다듬되 핵심 내용은 보존한다.
-5. 결과는 한국어 본문만 출력한다.
-6. 제목, 설명, 머리말 없이 본문만 출력한다.
-
-원문:
-${rawText}
-`.trim();
-
-  const response = await ai.models.generateContent({
-    model: env.geminiGenerateModel,
-    contents: prompt,
-    config: {
-      thinkingConfig: {
-        thinkingBudget: 0,
-      },
-    },
-  });
-
-  const memoir = response.text?.trim();
-
-  console.log("[GENERATE] response text:", memoir);
-
-  if (!memoir) {
-    throw new Error("자서전 생성 결과가 비어 있습니다.");
-  }
-
-  return memoir;
 }

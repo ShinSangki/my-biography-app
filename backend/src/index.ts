@@ -7,17 +7,18 @@ import multer from "multer";
 import { env } from "./config/env.js";
 import {
   createMemoir,
-  findMemoirById
+  findMemoirById,
+  getAllMemoirs,
+  updateMemoir,
+  deleteMemoir
 } from "./repositories/memoirRepository.js";
 import {
   createRecording,
   findRecordingById,
   updateRecordingText
 } from "./repositories/recordingRepository.js";
-import {
-  generateMemoirText,
-  transcribeAudioFromFile
-} from "./services/geminiService.js";
+import { transcribeAudioFromFile } from "./services/geminiSTTService.js";
+import { generateMemoirText } from "./services/geminiGENERATEService.js";
 import {
   ensureDir,
   fileExists,
@@ -52,7 +53,16 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+// Multer 파일 필터: 오디오 파일(또는 웹 브라우저 녹음 파일)만 허용하도록 검증
+const audioFilter = (_req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  if (file.mimetype.startsWith("audio/") || file.mimetype === "video/webm") {
+    cb(null, true);
+  } else {
+    cb(new Error("오디오 형식의 파일만 업로드 가능합니다."));
+  }
+};
+
+const upload = multer({ storage, fileFilter: audioFilter });
 
 // 헬스 체크 엔드포인트
 app.get("/health", (_req, res) => {
@@ -67,8 +77,7 @@ app.get("/health", (_req, res) => {
 // -----------------------------
 
 /**
- * 1) 음성 파일 업로드
- * form-data key: audio
+ * 음성 파일 업로드 (form-data key: audio)
  */
 app.post("/upload", upload.single("audio"), (req, res) => {
   if (!req.file) {
@@ -94,9 +103,9 @@ app.post("/upload", upload.single("audio"), (req, res) => {
 });
 
 /**
- * 2) recordings 테이블 저장
+ * recordings 테이블에 녹음 메타데이터 저장
  */
-app.post("/recordings/save", (req, res) => {
+app.post("/recordings/save", async (req, res, next) => {
   const { audioPath, rawText } = req.body as {
     audioPath?: string;
     rawText?: string;
@@ -111,33 +120,39 @@ app.post("/recordings/save", (req, res) => {
 
   const absolutePath = toAbsolutePath(audioPath);
 
-  if (!fileExists(absolutePath)) {
-    return res.status(404).json({
-      success: false,
-      message: "해당 오디오 파일을 찾을 수 없습니다."
+  try {
+    // fs.promises.stat을 사용해 비동기적으로 파일 정보를 가져오고 존재 여부를 확인합니다.
+    const stat = await fs.promises.stat(absolutePath);
+    
+    const fileName = path.basename(absolutePath);
+    const mimeType = getMimeType(absolutePath);
+  
+    const recordingId = createRecording({
+      fileName,
+      filePath: toRelativePath(absolutePath),
+      mimeType,
+      fileSize: stat.size,
+      rawText
     });
+  
+    return res.json({
+      success: true,
+      recordingId
+    });
+  } catch (error: any) {
+    // 파일이 존재하지 않을 때 발생하는 에러(ENOENT) 처리
+    if (error.code === "ENOENT") {
+      return res.status(404).json({
+        success: false,
+        message: "해당 오디오 파일을 찾을 수 없습니다."
+      });
+    }
+    next(error);
   }
-
-  const stat = fs.statSync(absolutePath);
-  const fileName = path.basename(absolutePath);
-  const mimeType = getMimeType(absolutePath);
-
-  const recordingId = createRecording({
-    fileName,
-    filePath: toRelativePath(absolutePath),
-    mimeType,
-    fileSize: stat.size,
-    rawText
-  });
-
-  return res.json({
-    success: true,
-    recordingId
-  });
 });
 
 /**
- * 3) STT 처리
+ * STT(Speech-to-Text) 변환 처리
  */
 app.post("/stt", async (req, res, next) => {
   try {
@@ -178,11 +193,11 @@ app.post("/stt", async (req, res, next) => {
 });
 
 /**
- * 4) 자서전 문장 생성
+ * 자서전 초안 텍스트 생성
  */
 app.post("/generate", async (req, res, next) => {
   try {
-    const { text } = req.body as { text?: string };
+    const { text, audioPath } = req.body as { text?: string; audioPath?: string };
 
     if (!text || !text.trim()) {
       return res.status(400).json({
@@ -191,11 +206,17 @@ app.post("/generate", async (req, res, next) => {
       });
     }
 
-    const memoir = await generateMemoirText(text);
+    const generated = await generateMemoirText(text);
 
     return res.json({
       success: true,
-      memoir
+      memoir: generated.memoir,
+      content: generated.memoir,
+      title: generated.title,
+      time: generated.time,
+      location: generated.location,
+      transcript: text,
+      audioPath: audioPath
     });
   } catch (error) {
     next(error);
@@ -203,13 +224,15 @@ app.post("/generate", async (req, res, next) => {
 });
 
 /**
- * 5) 자서전 저장
+ * 자서전 데이터 저장
  */
 app.post("/memoirs/save", (req, res) => {
-  const { recordingId, title, content } = req.body as {
+  const { recordingId, title, content, time, location } = req.body as {
     recordingId?: number;
     title?: string;
     content?: string;
+    time?: string;
+    location?: string;
   };
 
   if (!content || !content.trim()) {
@@ -222,7 +245,9 @@ app.post("/memoirs/save", (req, res) => {
   const memoirId = createMemoir({
     recordingId: recordingId ? Number(recordingId) : null,
     title: title?.trim() || "내 이야기",
-    content: content.trim()
+    content: content.trim(),
+    time: time?.trim() || null,
+    location: location?.trim() || null
   });
 
   return res.json({
@@ -232,7 +257,7 @@ app.post("/memoirs/save", (req, res) => {
 });
 
 /**
- * 6) 저장된 자서전 조회
+ * 저장된 자서전 상세 조회
  */
 app.get("/memoirs/:id", (req, res) => {
   const memoirId = Number(req.params.id);
@@ -260,7 +285,7 @@ app.get("/memoirs/:id", (req, res) => {
 });
 
 /**
- * 7) recordings 조회
+ * 특정 녹음 데이터 조회
  */
 app.get("/recordings/:id", (req, res) => {
   const recordingId = Number(req.params.id);
@@ -285,6 +310,46 @@ app.get("/recordings/:id", (req, res) => {
     success: true,
     recording
   });
+});
+
+/**
+ * 자서전 목록 전체 조회 (프론트엔드 연동용)
+ */
+app.get("/autobiographies", (req, res) => {
+  const memoirs = getAllMemoirs();
+  
+  const formatted = memoirs.map(m => ({
+    id: m.id.toString(),
+    title: m.title,
+    content: m.content,
+    date: m.time || m.created_at,
+    location: m.location,
+    recordingId: m.recording_id
+  }));
+
+  return res.json({
+    success: true,
+    data: formatted
+  });
+});
+
+/**
+ * 자서전 내용 수정 (프론트엔드 연동용)
+ */
+app.put("/autobiographies/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const { title, content } = req.body;
+  updateMemoir(id, title, content);
+  return res.json({ success: true });
+});
+
+/**
+ * 자서전 내용 삭제 (프론트엔드 연동용)
+ */
+app.delete("/autobiographies/:id", (req, res) => {
+  const id = Number(req.params.id);
+  deleteMemoir(id);
+  return res.json({ success: true });
 });
 
 /**

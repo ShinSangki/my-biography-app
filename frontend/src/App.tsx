@@ -14,6 +14,9 @@ type RecordItem = {
   memoirId?: number;
   sttText?: string;
   memoirText?: string;
+  title?: string;
+  time?: string;
+  location?: string;
   errorMessage?: string;
 };
 
@@ -42,6 +45,9 @@ type SttResponse = {
 type GenerateResponse = {
   success: boolean;
   memoir: string;
+  title: string;
+  time: string;
+  location: string;
 };
 
 type SaveMemoirResponse = {
@@ -94,6 +100,10 @@ export default function App() {
   const [message, setMessage] = useState("준비되었습니다.");
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const [editingRecord, setEditingRecord] = useState<RecordItem | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
     initRecorder();
@@ -390,7 +400,10 @@ export default function App() {
 
   async function saveMemoir(
     recordingId: number,
-    content: string
+    content: string,
+    title?: string,
+    time?: string,
+    location?: string
   ): Promise<SaveMemoirResponse> {
     const response = await fetch(`${API_BASE_URL}/memoirs/save`, {
       method: "POST",
@@ -399,8 +412,10 @@ export default function App() {
       },
       body: JSON.stringify({
         recordingId,
-        title: "내 이야기",
+        title: title || "내 이야기",
         content,
+        time,
+        location
       }),
     });
 
@@ -457,12 +472,18 @@ export default function App() {
       updateRecord(id, (item) => ({
         ...item,
         memoirText: generateResult.memoir,
+        title: generateResult.title,
+        time: generateResult.time,
+        location: generateResult.location,
       }));
 
       setMessage("자서전 초안을 저장하고 있습니다.");
       const saveMemoirResult = await saveMemoir(
         recordingId,
-        generateResult.memoir
+        generateResult.memoir,
+        generateResult.title,
+        generateResult.time,
+        generateResult.location
       );
 
       updateRecord(id, (item) => ({
@@ -501,6 +522,21 @@ export default function App() {
         return "오류";
       default:
         return "-";
+    }
+  }
+
+  function openModal(item: RecordItem) {
+    setEditingRecord(item);
+    setEditTitle(item.title || "제목 없는 이야기");
+    setEditContent(item.memoirText || "");
+  }
+
+  function saveModal() {
+    if (editingRecord) {
+      updateRecord(editingRecord.id, (r) => ({ ...r, title: editTitle, memoirText: editContent }));
+      // 향후 여기서 백엔드 PUT /autobiographies/:id API 호출 가능
+      setEditingRecord(null);
+      setMessage("이야기가 수정되었습니다.");
     }
   }
 

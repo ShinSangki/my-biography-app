@@ -27,6 +27,8 @@ db.exec(`
     recording_id INTEGER,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
+    time TEXT,
+    location TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
     FOREIGN KEY (recording_id) REFERENCES recordings(id)

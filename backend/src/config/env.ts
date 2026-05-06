@@ -12,8 +12,10 @@ function getRequiredEnv(name: string): string {
 
 export const env = {
   port: Number(process.env.PORT ?? 4000),
-  geminiApiKey: getRequiredEnv("GEMINI_API_KEY"),
+  geminiGenerateApiKey: getRequiredEnv("GEMINI_GENERATE_API_KEY"),
+  geminiSttApiKey: getRequiredEnv("GEMINI_STT_API_KEY"),
   geminiSttModel: process.env.GEMINI_STT_MODEL ?? "gemini-2.5-flash",
   geminiGenerateModel: process.env.GEMINI_GENERATE_MODEL ?? "gemini-2.5-flash",
+  gemmaApiUrl: process.env.GEMMA_API_URL ?? "http://localhost:8000/generate",
   dbPath: process.env.DB_PATH ?? "./data/app.db"
 };
