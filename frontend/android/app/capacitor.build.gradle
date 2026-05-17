@@ -9,8 +9,7 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-    implementation project(':capgo-capacitor-audio-recorder')
-    implementation project(':capacitor-voice-recorder')
+
 
 }
 

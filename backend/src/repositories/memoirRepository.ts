@@ -67,13 +67,13 @@ export function getAllMemoirs(): Memoir[] {
   return stmt.all() as Memoir[];
 }
 
-export function updateMemoir(id: number, title: string, content: string): void {
+export function updateMemoir(id: number, title: string, content: string, time?: string, location?: string): void {
   const stmt = db.prepare(`
     UPDATE memoirs 
-    SET title = @title, content = @content, updated_at = datetime('now', 'localtime')
+    SET title = @title, content = @content, time = @time, location = @location, updated_at = datetime('now', 'localtime')
     WHERE id = @id
   `);
-  stmt.run({ id, title, content });
+  stmt.run({ id, title, content, time: time ?? null, location: location ?? null });
 }
 
 export function deleteMemoir(id: number): void {

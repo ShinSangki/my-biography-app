@@ -35,4 +35,16 @@ db.exec(`
   );
 `);
 
+// 이미 생성된 테이블에 컬럼이 없을 경우를 대비한 자동 마이그레이션 (에러 원천 차단)
+try {
+  db.exec("ALTER TABLE memoirs ADD COLUMN time TEXT;");
+} catch (_) {
+  // 이미 컬럼이 존재하면 에러 무시
+}
+try {
+  db.exec("ALTER TABLE memoirs ADD COLUMN location TEXT;");
+} catch (_) {
+  // 이미 컬럼이 존재하면 에러 무시
+}
+
 export default db;

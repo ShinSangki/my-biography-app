@@ -8,6 +8,8 @@ import { env } from "./config/env.js";
 import {
   createMemoir,
   findMemoirById,
+// *~ 기능을 유지하던 코드입니다*
+// findMemoirById,
   getAllMemoirs,
   updateMemoir,
   deleteMemoir
@@ -15,10 +17,15 @@ import {
 import {
   createRecording,
   findRecordingById,
+// *~ 기능을 유지하던 코드입니다*
+// findRecordingById,
   updateRecordingText
 } from "./repositories/recordingRepository.js";
 import { transcribeAudioFromFile } from "./services/geminiSTTService.js";
 import { generateMemoirText } from "./services/geminiGENERATEService.js";
+import memoirRoutes from "./services/memoirRoutes.js";
+// *~ 기능을 유지하던 코드입니다*
+// import memoirRoutes from "./services/memoirRoutes.js";
 import {
   ensureDir,
   fileExists,
@@ -71,6 +78,9 @@ app.get("/health", (_req, res) => {
     message: "server is running"
   });
 });
+
+// 한 번에 처리되는 자서전 통합 API 라우터 연결
+app.use("/api/memoirs", memoirRoutes);
 
 // -----------------------------
 // 녹음 파일 및 자서전 관리 라우트
@@ -226,34 +236,38 @@ app.post("/generate", async (req, res, next) => {
 /**
  * 자서전 데이터 저장
  */
-app.post("/memoirs/save", (req, res) => {
-  const { recordingId, title, content, time, location } = req.body as {
-    recordingId?: number;
-    title?: string;
-    content?: string;
-    time?: string;
-    location?: string;
-  };
-
-  if (!content || !content.trim()) {
-    return res.status(400).json({
-      success: false,
-      message: "content 가 필요합니다."
+app.post("/memoirs/save", (req, res, next) => {
+  try {
+    const { recordingId, title, content, time, location } = req.body as {
+      recordingId?: number;
+      title?: string;
+      content?: string;
+      time?: string;
+      location?: string;
+    };
+  
+    if (!content || !String(content).trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "content 가 필요합니다."
+      });
+    }
+  
+    const memoirId = createMemoir({
+      recordingId: recordingId ? Number(recordingId) : null,
+      title: title ? String(title).trim() : "내 이야기",
+      content: String(content).trim(),
+      time: time ? String(time).trim() : null,
+      location: location ? String(location).trim() : null
     });
+  
+    return res.json({
+      success: true,
+      memoirId
+    });
+  } catch (error) {
+    next(error); // 에러 발생 시 서버가 죽지 않고 안전하게 프론트로 에러 메시지 전달
   }
-
-  const memoirId = createMemoir({
-    recordingId: recordingId ? Number(recordingId) : null,
-    title: title?.trim() || "내 이야기",
-    content: content.trim(),
-    time: time?.trim() || null,
-    location: location?.trim() || null
-  });
-
-  return res.json({
-    success: true,
-    memoirId
-  });
 });
 
 /**
@@ -261,6 +275,31 @@ app.post("/memoirs/save", (req, res) => {
  */
 app.get("/memoirs/:id", (req, res) => {
   const memoirId = Number(req.params.id);
+// *~ 기능을 유지하던 코드입니다*
+// app.get("/memoirs/:id", (req, res) => {
+//   const memoirId = Number(req.params.id);
+//
+//   if (Number.isNaN(memoirId)) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "유효한 memoir id 가 아닙니다."
+//     });
+//   }
+//
+//   const memoir = findMemoirById(memoirId);
+//
+//   if (!memoir) {
+//     return res.status(404).json({
+//       success: false,
+//       message: "자서전을 찾을 수 없습니다."
+//     });
+//   }
+//
+//   return res.json({
+//     success: true,
+//     memoir
+//   });
+// });
 
   if (Number.isNaN(memoirId)) {
     return res.status(400).json({
@@ -289,6 +328,31 @@ app.get("/memoirs/:id", (req, res) => {
  */
 app.get("/recordings/:id", (req, res) => {
   const recordingId = Number(req.params.id);
+// *~ 기능을 유지하던 코드입니다*
+// app.get("/recordings/:id", (req, res) => {
+//   const recordingId = Number(req.params.id);
+//
+//   if (Number.isNaN(recordingId)) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "유효한 recording id 가 아닙니다."
+//     });
+//   }
+//
+//   const recording = findRecordingById(recordingId);
+//
+//   if (!recording) {
+//     return res.status(404).json({
+//       success: false,
+//       message: "녹음 데이터를 찾을 수 없습니다."
+//     });
+//   }
+//
+//   return res.json({
+//     success: true,
+//     recording
+//   });
+// });
 
   if (Number.isNaN(recordingId)) {
     return res.status(400).json({
@@ -322,7 +386,8 @@ app.get("/autobiographies", (req, res) => {
     id: m.id.toString(),
     title: m.title,
     content: m.content,
-    date: m.time || m.created_at,
+    time: m.time,
+    createdAt: m.created_at,
     location: m.location,
     recordingId: m.recording_id
   }));
@@ -338,8 +403,8 @@ app.get("/autobiographies", (req, res) => {
  */
 app.put("/autobiographies/:id", (req, res) => {
   const id = Number(req.params.id);
-  const { title, content } = req.body;
-  updateMemoir(id, title, content);
+  const { title, content, time, location } = req.body;
+  updateMemoir(id, title, content, time, location);
   return res.json({ success: true });
 });
 
@@ -367,6 +432,6 @@ app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-app.listen(env.port, () => {
-  console.log(`Server started on http://localhost:${env.port}`);
+app.listen(env.port, "0.0.0.0", () => {
+  console.log(`Server started on http://0.0.0.0:${env.port} (All network interfaces)`);
 });
