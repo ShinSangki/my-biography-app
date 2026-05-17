@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 /* ==========================================
@@ -137,10 +137,6 @@ export default function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const selectedRecord = useMemo(() => {
-    return records.find((item) => item.id === selectedId) ?? null;
-  }, [records, selectedId]);
 
   /* --- 3-3. 데이터 로드 (Data Fetching) --- */
   async function loadHistory() {
