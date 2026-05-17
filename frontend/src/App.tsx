@@ -104,7 +104,6 @@ export default function App() {
   const [recordSeconds, setRecordSeconds] = useState(0);
 
   const [records, setRecords] = useState<RecordItem[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [message, setMessage] = useState("준비되었습니다.");
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -282,7 +281,6 @@ export default function App() {
           blob, audioUrl, status: "local",
         };
         setRecords((prev) => [item, ...prev]);
-        setSelectedId(item.id);
         setMessage("녹음이 저장되었습니다.");
         if (streamRef.current) {
           streamRef.current.getTracks().forEach((track) => track.stop());
@@ -349,10 +347,6 @@ export default function App() {
 
     const next = records.filter((item) => item.id !== id);
     setRecords(next);
-
-    if (selectedId === id) {
-      setSelectedId(next.length > 0 ? next[0].id : null);
-    }
 
     setMessage("녹음이 삭제되었습니다.");
   }
@@ -562,21 +556,6 @@ export default function App() {
       setMessage("서버 처리 실패");
     } finally {
       setIsProcessing(false);
-    }
-  }
-
-  function getRecordStatusLabel(item: RecordItem) {
-    switch (item.status) {
-      case "local":
-        return "로컬 저장";
-      case "processing":
-        return "처리 중";
-      case "done":
-        return "처리 완료";
-      case "error":
-        return "오류";
-      default:
-        return "-";
     }
   }
 
