@@ -58,8 +58,7 @@ type SaveMemoirResponse = {
   memoirId: number;
 };
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
+const API_BASE_URL = "https://biography-backend.onrender.com";
 
 /* ==========================================
    [2] 유틸리티 함수 (Utils)
