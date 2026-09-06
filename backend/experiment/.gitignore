@@ -1,5 +1,4 @@
-results/phase1_raw_partial.json
-results/phase2_raw_partial.json
-results/real_raw_partial.json
+results/*_raw_partial.json
+results/sep_raw_partial.json
 results/*_run.log
 audio/
