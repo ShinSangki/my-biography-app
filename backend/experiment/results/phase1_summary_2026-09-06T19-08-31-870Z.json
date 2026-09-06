@@ -1,6 +1,6 @@
 {
   "model": "gemini-2.5-flash",
-  "generatedAt": "2026-09-06T19-13-43-811Z",
+  "generatedAt": "2026-09-06T19-08-31-870Z",
   "summary": [
     {
       "targetWer": 0,
@@ -9,38 +9,38 @@
       "entity_time": 1,
       "entity_location": 1,
       "entity_mean": 1,
-      "event_order_accuracy": 0.8076923076923077,
-      "semantic_similarity": 0.9998198737723691
+      "event_order_accuracy": 0.8012820512820512,
+      "semantic_similarity": 0.9996068803465582
     },
     {
       "targetWer": 0.1,
       "n": 26,
       "meanActualWer": 0.10708562609470951,
       "entity_time": 0.9807692307692307,
-      "entity_location": 0.9230769230769231,
-      "entity_mean": 0.9519230769230769,
-      "event_order_accuracy": 0.8205128205128205,
-      "semantic_similarity": 0.9935465446733691
+      "entity_location": 0.9038461538461539,
+      "entity_mean": 0.9423076923076923,
+      "event_order_accuracy": 0.8269230769230769,
+      "semantic_similarity": 0.9940044701602945
     },
     {
       "targetWer": 0.2,
       "n": 26,
       "meanActualWer": 0.1984169096039727,
       "entity_time": 0.9807692307692307,
-      "entity_location": 0.9423076923076923,
-      "entity_mean": 0.9615384615384616,
+      "entity_location": 0.9230769230769231,
+      "entity_mean": 0.9519230769230769,
       "event_order_accuracy": 0.7884615384615383,
-      "semantic_similarity": 0.987523796193316
+      "semantic_similarity": 0.9879703739093435
     },
     {
       "targetWer": 0.3,
       "n": 26,
       "meanActualWer": 0.3012099532810998,
       "entity_time": 0.9615384615384616,
-      "entity_location": 0.8076923076923077,
-      "entity_mean": 0.8846153846153846,
-      "event_order_accuracy": 0.8076923076923077,
-      "semantic_similarity": 0.9833852923246311
+      "entity_location": 0.7692307692307693,
+      "entity_mean": 0.8653846153846154,
+      "event_order_accuracy": 0.8012820512820512,
+      "semantic_similarity": 0.9837867542210851
     }
   ]
 }
