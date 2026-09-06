@@ -85,6 +85,27 @@ function isMismatch(a, b) {
 }
 
 /**
+ * Ablation 조건: 구조 분리만 (③), 선택적 보정(⑤) 없음.
+ * 시간·장소를 전용 프롬프트로 원문에서 별도 추출하고, 문체 정리는 분리 수행.
+ * 두 추출 후보 비교·재보정을 하지 않으므로 정리문 재추출(2번째 후보)도 생략 → 호출 2회.
+ */
+export async function runSeparationOnly(rawText, gen) {
+  const [cand, cleaned] = await Promise.all([
+    gen.generateJSON(EXTRACT_PROMPT(rawText)),
+    gen.generateJSON(CLEAN_PROMPT(rawText)),
+  ]);
+  return {
+    title: cleaned.title,
+    memoir: cleaned.memoir,
+    time: cand.time,
+    location: cand.location,
+    corrected: false,
+    reason: null,
+    candidates: { fromRaw: cand, fromClean: null },
+  };
+}
+
+/**
  * @param {string} rawText  STT(노이즈 주입) 텍스트
  * @param {{generateJSON: (p:string)=>Promise<any>}} gen
  * @returns {{title,memoir,time,location,corrected,reason,candidates}}
