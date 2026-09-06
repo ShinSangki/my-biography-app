@@ -7,7 +7,7 @@ IV장(실험 설계 및 평가 방법)을 코드로 구현한 것이다.
 
 > STT 오류율이 증가함에 따라 현재 구현과 같은 단일 호출 방식(baseline)의 자서전 생성 품질은 어떻게 저하되는가.
 
-- **입력**: `dataset/samples.json` — 생애사 클린 텍스트 16편 + 시간·장소 골드 태그 + 사건 순서
+- **입력**: `dataset/samples.json` — 생애사 클린 텍스트 26편 + 시간·장소 골드 태그 + 사건 순서
 - **STT 오류 시뮬레이션** (`src/noiseInjector.mjs`): 규칙 기반 노이즈
   - 음운 유사 치환 (ㅐ↔ㅔ, ㄷ↔ㅌ, 받침 탈락 등 자모 단위 변형)
   - 단어 삭제
@@ -65,6 +65,6 @@ node makeReportCompare.mjs # results/compare_report.md
 
 ## 이후 (예정)
 
-- 데이터셋 20~30편으로 확대 후 재실행 (현재 16편 → 통계적 검정력 부족)
 - 사람 평가 집계 (Cohen's kappa) — `human_eval_template.csv` + phase2 생성문
 - p값: 정규근사 대응표본 t → 정확 t 분포 또는 윌콕슨 부호순위 검정으로 재계산
+- 실제 STT 엔진 오류(합성 노이즈 대신)로 생태적 타당도 보완
