@@ -183,27 +183,35 @@ for (const r of examples) {
   md += `| ${r.sampleId}/${r.condition} | ${f(r.wer * 100, 1)}% | ${clip(r.cleanText)} → ${clip(r.sttText)} |\n`;
 }
 
-// 정보량 있는 구간 (STT 완전 붕괴 제외: CER < 0.6)
-const informative = ok.filter((x) => x.cer < 0.6);
-const collapsed = ok.filter((x) => x.cer >= 0.6);
-const infoMid = informative.filter((x) => x.cer >= 0.05); // 실제 오류가 있는 구간
-const midBe = mean(infoMid.map((x) => m(x, "baseline").entity_mean));
-const midPe = mean(infoMid.map((x) => m(x, "proposed").entity_mean));
+// 구간 정의
+const collapsed = ok.filter((x) => x.cer >= 0.6); // STT 완전 붕괴
+const lowBand = ok.filter((x) => x.cer >= 0.02 && x.cer < 0.15); // 실제 저오류
+const hiBand = ok.filter((x) => x.cer >= 0.15 && x.cer < 0.6); // 실제 고오류
+const loBe = mean(lowBand.map((x) => m(x, "baseline").entity_mean));
+const loPe = mean(lowBand.map((x) => m(x, "proposed").entity_mean));
+const hiBe = mean(hiBand.map((x) => m(x, "baseline").entity_mean));
+const hiPe = mean(hiBand.map((x) => m(x, "proposed").entity_mean));
+
+// RQ1 실제 STT 재현 (무오류 vs 저오류)
+const cleanB = ok.filter((x) => x.cer < 0.02);
+const rq1locDrop = mean(cleanB.map((x) => m(x, "baseline").entity_location)) - mean(lowBand.concat(hiBand).map((x) => m(x, "baseline").entity_location));
+const rq1semDrop = mean(cleanB.map((x) => m(x, "baseline").semantic_similarity)) - mean(lowBand.concat(hiBand).map((x) => m(x, "baseline").semantic_similarity));
 
 md += `
 ## 5. 관찰
 
-- **실제 STT 는 이봉형(bimodal) 오류 프로파일을 보인다.** 음향이 양호하면(clean/noisy_mild) CER ~2–3% 로 거의 무오류, 심하게 열화되면(extreme) CER 80%+ 로 완전 붕괴 — 그 사이 완만한 구간이 좁다. 합성 노이즈의 매끄러운 WER 스윕(0→10→20→30%)과 다르다.
-- **\`extreme\` 조건(${collapsed.length}케이스, CER≥60%)은 STT 가 문장을 통째로 환각한다** ("2,500년에서 2,600년 전의 일", "북한의 몽골비오 연구자"). 두 방식 모두 개체 보존 ≈ 0 — 비교에 무의미하므로 아래 논의에서 제외한다.
-- **실제 오류가 존재하는 정보 구간(CER 5–60%, ${infoMid.length}케이스)에서 제안 방식의 이득이 합성 노이즈 실험처럼 재현되지 않았다:** baseline 개체 보존 ${f(midBe)} vs 제안 ${f(midPe)} (${pp((midPe ?? 0) - (midBe ?? 0))}). ${midPe >= midBe ? "" : "오히려 소폭 낮다. "}합성 노이즈(WER 20–30%)에서는 제안 방식이 +1~4%p 우세했던 것과 대비된다.
-- **추정 원인:** 규칙 기반 합성 노이즈는 "명백히 깨진" 텍스트(\`견키 파주\`)를 만들어 원문·정리문 추출 후보가 서로 어긋나므로 선택적 보정이 신호를 얻는다. 반면 실제 STT 오류는 "유창하지만 틀린" 치환(\`파주\`→\`파저\`, 그럴듯한 오인식)이라 두 추출 경로가 **같은 틀린 값에 합의**해 버려 보정이 발동하지 않거나 틀린 쪽을 고른다.
-- **결론:** 제안 파이프라인은 합성 노이즈라는 통제 환경에서는 개선 경향을 보였으나, 파일럿 규모의 실제 STT 오류에서는 그 이득이 전이되지 않았다. 이는 합성 노이즈와 실제 STT 오류의 **구조적 차이**를 시사하며, 제안 방식의 선택적 보정 트리거(추출 후보 불일치)가 실제 오류 특성에 맞게 재설계되어야 함을 뜻한다.
+- **RQ1 은 실제 STT 에서 견고하게 재현된다.** 무오류 구간(CER<2%) 대비 오류 구간에서 기준 방식의 장소 개체 보존율은 ${f(rq1locDrop * 100, 1)}%p 하락한 반면 의미 유사도는 ${f(rq1semDrop * 100, 1)}%p 하락에 그쳤다. 합성 노이즈와 동일하게 메타데이터가 본문보다 크게 손상된다.
+- **실제 STT 는 이봉형(bimodal) 오류 프로파일을 보인다.** 음향이 양호하면 CER ~1–3% 로 거의 무오류, 심하게 열화되면 CER 25%+ 로 급락하며, ${collapsed.length}케이스(CER≥60%)에서는 STT 가 문장을 통째로 환각한다("3만 2,000년 전으로 태어난"). 합성 노이즈의 매끄러운 WER 스윕과 구조가 다르다.
+- **제안 방식의 이득은 실제 STT 에서 거의 사라진다.** 저오류 구간(CER 2–15%, ${lowBand.length}케이스)에서 개체 보존율은 기준 ${f(loBe)} vs 제안 ${f(loPe)} (${pp((loPe ?? 0) - (loBe ?? 0))}), 고오류 구간(CER 15–60%, ${hiBand.length}케이스)에서는 기준 ${f(hiBe)} vs 제안 ${f(hiPe)} (${pp((hiPe ?? 0) - (hiBe ?? 0))}). 전체 104케이스 대응표본에서도 개체 보존(평균) Δ +0.5%p(대응 t=1.42, 비유의). 합성 노이즈(WER 30%)에서의 +3.8%p 와 대비된다.
+- 12편 파일럿에서 관측된 "제안 방식이 오히려 소폭 낮음"은 26편 확대 시 재현되지 않았고, "무해하나 유의미하지 않음"으로 수렴하였다.
+- **추정 원인:** 규칙 기반 합성 노이즈는 "명백히 깨진" 텍스트(\`견키 파주\`)를 만들어 원문·정리문 추출 후보가 서로 어긋나므로 선택적 보정이 신호를 얻는다. 반면 실제 STT 오류는 "유창하지만 틀린" 치환(\`파주 문산\`→\`나원동\`)이라 두 추출 경로가 **같은 값에 합의**하거나(보정 미발동), 발동해도 두 후보가 모두 틀렸다. 보정 발동률은 0.54~0.65 로 유지되나 순효과가 0에 가깝다.
+- **결론:** RQ1(구조적 취약성)은 합성·실제 STT 양쪽에서 확인된다. 제안 방식은 통제된 합성 노이즈에서만 소폭 개선을 보이며, 실제 STT 오류에서는 개선이 소멸한다. 요인 분해상 유일하게 효과를 내는 선택적 보정 단계가 실제 오류 특성(문맥상 그럴듯한 오인식)과 맞지 않기 때문이며, 트리거를 추출 후보 불일치가 아닌 다른 신호(신뢰도, N-best 분산)로 재설계할 필요가 있다.
 
 ## 6. 재현
 
 \`\`\`bash
 cd backend/experiment/src
-EXP_REAL_SAMPLES=12 node runPhaseReal.mjs   # TTS→STT, ~40분
+EXP_REAL_SAMPLES=26 EXP_REAL_CONDITIONS=clean,noisy_mild,noisy_mid,noisy_harsh node runPhaseReal.mjs
 node makeReportReal.mjs
 \`\`\`
 `;
