@@ -100,6 +100,43 @@ function pairedT(base, prop) {
 function normalCdf(x) {
   return 0.5 * (1 + erf(x / Math.SQRT2));
 }
+
+// 윌콕슨 부호순위 검정 (양측, 정규근사 + 연속성·동점 보정). 0 차이는 제외.
+function wilcoxonSignedRank(base, prop) {
+  const diffs = prop.map((x, i) => x - base[i]).filter((d) => d !== 0);
+  const n = diffs.length;
+  if (n < 1) return { W: null, z: null, p: null, n: 0 };
+  const order = diffs
+    .map((d, i) => ({ a: Math.abs(d), s: Math.sign(d), i }))
+    .sort((x, y) => x.a - y.a);
+  // 평균 순위(동점 처리)
+  const ranks = new Array(n);
+  let i = 0;
+  while (i < n) {
+    let j = i;
+    while (j + 1 < n && order[j + 1].a === order[i].a) j++;
+    const avg = (i + j) / 2 + 1;
+    for (let k = i; k <= j; k++) ranks[k] = avg;
+    i = j + 1;
+  }
+  let Wplus = 0;
+  let Wminus = 0;
+  for (let k = 0; k < n; k++) {
+    if (order[k].s > 0) Wplus += ranks[k];
+    else Wminus += ranks[k];
+  }
+  const W = Math.min(Wplus, Wminus);
+  const meanW = (n * (n + 1)) / 4;
+  // 동점 보정
+  const tieGroups = {};
+  for (const o of order) tieGroups[o.a] = (tieGroups[o.a] || 0) + 1;
+  const tieCorr = Object.values(tieGroups).reduce((s, t) => s + (t ** 3 - t), 0);
+  const varW = (n * (n + 1) * (2 * n + 1)) / 24 - tieCorr / 48;
+  if (varW <= 0) return { W, z: null, p: null, n };
+  const z = (W - meanW + 0.5 * Math.sign(meanW - W)) / Math.sqrt(varW);
+  const p = 2 * (1 - normalCdf(Math.abs(z)));
+  return { W, z, p, n };
+}
 function erf(x) {
   const s = x < 0 ? -1 : 1;
   x = Math.abs(x);
@@ -132,13 +169,15 @@ let md = `# 테스트 2·3단계 비교 리포트 (RQ2 / RQ3)
 
 for (const [field, label] of METRICS) {
   md += `### ${label}\n\n`;
-  md += `| WER | baseline | 제안 | Δ(제안-baseline) | 대응 t | p(근사) | n |\n|---:|---:|---:|---:|---:|---:|---:|\n`;
+  md += `| WER | baseline | 제안 | Δ(제안-baseline) | 대응 t | p(t,근사) | Wilcoxon p(근사) | 비동점쌍 | n |\n|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n`;
   for (const w of werLevels) {
     const { base, prop, n } = pairedByLevel(w, field);
     const tt = pairedT(base, prop);
-    md += `| ${w * 100}% | ${f(mean(base))} | ${f(mean(prop))} | ${p(tt.meanDiff)} | ${tt.t == null ? "—" : tt.t.toFixed(2)} | ${tt.p == null ? "—" : tt.p.toFixed(3)} | ${n} |\n`;
+    const wx = wilcoxonSignedRank(base, prop);
+    const wp = wx.p == null || wx.n < 6 ? `${wx.p == null ? "—" : wx.p.toFixed(3)}†` : wx.p.toFixed(3);
+    md += `| ${w * 100}% | ${f(mean(base))} | ${f(mean(prop))} | ${p(tt.meanDiff)} | ${tt.t == null ? "—" : tt.t.toFixed(2)} | ${tt.p == null ? "—" : tt.p.toFixed(3)} | ${wp} | ${wx.n} | ${n} |\n`;
   }
-  md += `\n`;
+  md += `\n† 비동점쌍 < 6 이라 근사 p 신뢰 불가(대부분의 케이스에서 두 방식의 결과가 동일).\n\n`;
 }
 
 md += `## 2. RQ3 — 오류율 수준별 개선폭 (Δ = 제안 − baseline, %p)
@@ -181,8 +220,8 @@ md += `
 
 - 개체 보존(평균) 개선폭: WER ${werLevels[0] * 100}%에서 ${p(dLo)}, WER ${werLevels[werLevels.length - 1] * 100}%에서 ${p(dHi)}.
 - ${dHi != null && dLo != null && dHi > dLo ? "오류율이 높을수록 제안 방식의 이득이 커지는 경향(RQ3 가설과 일치)." : "오류율 수준에 따른 이득 차이는 뚜렷하지 않음 — 표본 확대 필요."}
-- p(근사)는 정규근사 기반 대응표본 t의 대략치다. 표본 ${samples.length}편 규모에서는 참고용이며, 논문 보고 시 정확한 t 분포 또는 부트스트랩/윌콕슨 부호순위 검정으로 재계산 권장.
-- 사람 평가(자연스러움/전체 품질)는 \`human_eval_template.csv\`(baseline)와 phase2 생성문을 함께 평가자 2인에게 배정해 Cohen's kappa로 일치도 확인.
+- p 값은 두 가지를 병기한다: 대응표본 t(정규근사)와 **윌콕슨 부호순위 검정**(정규근사 + 연속성·동점 보정). 개체 보존 지표는 0/0.5/1 이산값이라 정규성 가정이 약하므로 윌콕슨을 우선 본다. 표본 ${samples.length}편 규모에서는 둘 다 참고용이며, 논문 보고 시 정확 검정(exact Wilcoxon) 또는 부트스트랩 신뢰구간 권장.
+- 사람 평가(자연스러움/전체 품질): \`node makeHumanEval.mjs\` 로 baseline/제안 생성문을 쌍으로 묶고 A/B 를 무작위로 섞은 블라인드 평가지(\`human_eval_blind.csv\`)를 만든 뒤, 평가자 2인이 채우고 \`node scoreHumanEval.mjs\` 로 방식별 평균 + 가중 Cohen's kappa 집계.
 
 ## 5. 재현
 

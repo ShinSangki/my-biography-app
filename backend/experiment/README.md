@@ -63,8 +63,46 @@ node runPhase2.mjs         # 제안 방식 (케이스당 최대 4회 호출)
 node makeReportCompare.mjs # results/compare_report.md
 ```
 
+## 생태적 타당도 보완 — 실제 STT 엔진 오류
+
+> 합성 노이즈(규칙 기반) 대신 실제 STT 엔진 오류로 phase1/2 결론을 재검증.
+
+- `src/tts.mjs` — Gemini TTS 로 클린 텍스트 → 합성 음성(wav). 샘플마다 화자 로테이션
+- `src/audio.mjs` — ffmpeg 음향 열화 조건 (clean / noisy_mild / noisy_harsh / extreme)
+- `src/stt.mjs` — 실제 Gemini STT 전사 (원본: `backend/src/services/geminiSTTService.ts`)
+- `src/baseline.mjs` — 기준 방식 공용 모듈 (원본: `geminiGENERATEService.ts`)
+- `src/runPhaseReal.mjs` — TTS→열화→STT→실측 WER→baseline/제안 생성→지표. 사후 WER 구간 분류
+- `src/makeReportReal.mjs` — 음향조건별·WER구간별 결과, 합성 노이즈 실험과 대조
+
+```bash
+cd backend/experiment/src
+EXP_REAL_SAMPLES=12 node runPhaseReal.mjs   # TTS→STT, ~50분. --resume 지원
+node makeReportReal.mjs                      # results/real_stt_report.md
+```
+
+- 오디오 파일은 `audio/` 에 캐시(git 제외). 재실행 시 TTS 건너뜀.
+- WER/CER 은 데이터셋 수사(數詞)를 숫자로 통일한 뒤 계산 (STT 의 "열여덟 살"→"18살"
+  표기 정규화가 오류로 잡히지 않도록).
+
+## 사람 평가 (논문 IV.2)
+
+```bash
+cd backend/experiment/src
+node makeHumanEval.mjs     # baseline/제안 생성문을 쌍으로 묶고 A/B 무작위 배정
+                          # → results/human_eval_blind.csv (평가자용), human_eval_key.csv (정답키)
+# 평가자 2인이 human_eval_blind.csv 의 자연스러움/전체 품질 칸(1–5)을 채운다
+node scoreHumanEval.mjs    # → results/human_eval_result.md (방식별 평균 + 가중 Cohen's kappa)
+```
+
+정답키(`human_eval_key.csv`)는 평가 완료 전까지 평가자에게 공개하지 않는다.
+
+## 통계
+
+- 비교 리포트는 대응표본 t(정규근사)와 **윌콕슨 부호순위 검정**(정규근사, 연속성·동점 보정)을 병기.
+- 개체 보존 지표가 이산값이고 대부분의 케이스에서 두 방식 결과가 동일해 "비동점쌍"이 매우 적다
+  → 근사 p 는 신뢰 불가, 논문에서는 정확 검정 또는 부트스트랩 권장.
+
 ## 이후 (예정)
 
-- 사람 평가 집계 (Cohen's kappa) — `human_eval_template.csv` + phase2 생성문
-- p값: 정규근사 대응표본 t → 정확 t 분포 또는 윌콕슨 부호순위 검정으로 재계산
-- 실제 STT 엔진 오류(합성 노이즈 대신)로 생태적 타당도 보완
+- 실제 STT 검증 전면 확대 (현재 12편 파일럿)
+- 데이터셋 추가 확대로 비동점쌍 수 확보
