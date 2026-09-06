@@ -1,0 +1,84 @@
+{
+  "model": "gemini-2.5-flash",
+  "generatedAt": "2026-09-06T17-50-12-605Z",
+  "byCond": [
+    {
+      "condition": "clean",
+      "n": 12,
+      "wer": 0.1280480608230191,
+      "cer": 0.020503203067159824,
+      "base_entity_mean": 1,
+      "prop_entity_mean": 1,
+      "base_entity_loc": 1,
+      "prop_entity_loc": 1,
+      "base_sim": 0.9946368163865421,
+      "prop_sim": 0.9935097191637016,
+      "correction_rate": 0.75
+    },
+    {
+      "condition": "noisy_mild",
+      "n": 12,
+      "wer": 0.131049771399929,
+      "cer": 0.0324976567557872,
+      "base_entity_mean": 1,
+      "prop_entity_mean": 1,
+      "base_entity_loc": 1,
+      "prop_entity_loc": 1,
+      "base_sim": 0.9929293043672609,
+      "prop_sim": 0.9921924866150738,
+      "correction_rate": 0.6666666666666666
+    },
+    {
+      "condition": "noisy_harsh",
+      "n": 12,
+      "wer": 0.5141096901466061,
+      "cer": 0.29575845604280354,
+      "base_entity_mean": 0.7291666666666666,
+      "prop_entity_mean": 0.6875,
+      "base_entity_loc": 0.7083333333333334,
+      "prop_entity_loc": 0.625,
+      "base_sim": 0.9048425515524244,
+      "prop_sim": 0.9052564203131604,
+      "correction_rate": 0.6666666666666666
+    },
+    {
+      "condition": "extreme",
+      "n": 12,
+      "wer": 0.943861233479096,
+      "cer": 0.8350480707696231,
+      "base_entity_mean": 0.020833333333333332,
+      "prop_entity_mean": 0.0625,
+      "base_entity_loc": 0,
+      "prop_entity_loc": 0,
+      "base_sim": 0.6413182471546596,
+      "prop_sim": 0.6433096715428712,
+      "correction_rate": 0.5
+    }
+  ],
+  "byBin": [
+    {
+      "bin": "0–5%",
+      "n": 7,
+      "base_entity_mean": 1,
+      "prop_entity_mean": 1
+    },
+    {
+      "bin": "5–15%",
+      "n": 8,
+      "base_entity_mean": 1,
+      "prop_entity_mean": 1
+    },
+    {
+      "bin": "15–30%",
+      "n": 11,
+      "base_entity_mean": 0.9545454545454546,
+      "prop_entity_mean": 0.9090909090909091
+    },
+    {
+      "bin": "30%+",
+      "n": 22,
+      "base_entity_mean": 0.3409090909090909,
+      "prop_entity_mean": 0.36363636363636365
+    }
+  ]
+}

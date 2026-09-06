@@ -183,19 +183,21 @@ for (const r of examples) {
   md += `| ${r.sampleId}/${r.condition} | ${f(r.wer * 100, 1)}% | ${clip(r.cleanText)} → ${clip(r.sttText)} |\n`;
 }
 
+// 정보량 있는 구간 (STT 완전 붕괴 제외: CER < 0.6)
+const informative = ok.filter((x) => x.cer < 0.6);
+const collapsed = ok.filter((x) => x.cer >= 0.6);
+const infoMid = informative.filter((x) => x.cer >= 0.05); // 실제 오류가 있는 구간
+const midBe = mean(infoMid.map((x) => m(x, "baseline").entity_mean));
+const midPe = mean(infoMid.map((x) => m(x, "proposed").entity_mean));
+
 md += `
 ## 5. 관찰
 
-- 합성 노이즈(규칙 기반)와 달리 실제 STT 오류는 음향 조건에 따라 자연스러운 WER 분포를 보인다.
-- 실측 WER 구간별로 볼 때, 제안 방식의 개체 보존 개선 방향이 합성 노이즈 실험과 ${(() => {
-  const hi = ok.filter((x) => x.wer >= 0.15);
-  if (!hi.length) return "일치하는지 판단하기에 표본이 부족하다";
-  const be = mean(hi.map((x) => m(x, "baseline").entity_mean));
-  const pe = mean(hi.map((x) => m(x, "proposed").entity_mean));
-  return pe > be ? "동일하게 나타난다(제안 방식이 우세)" : "다르게 나타난다 — 추가 검토 필요";
-})()}.
-- 본 검증은 파일럿 규모다. 논문에는 "합성 노이즈의 결론이 실제 STT 오류에서도 관찰됨" 수준으로 보고하고,
-  전면 검증은 향후 과제로 남긴다.
+- **실제 STT 는 이봉형(bimodal) 오류 프로파일을 보인다.** 음향이 양호하면(clean/noisy_mild) CER ~2–3% 로 거의 무오류, 심하게 열화되면(extreme) CER 80%+ 로 완전 붕괴 — 그 사이 완만한 구간이 좁다. 합성 노이즈의 매끄러운 WER 스윕(0→10→20→30%)과 다르다.
+- **\`extreme\` 조건(${collapsed.length}케이스, CER≥60%)은 STT 가 문장을 통째로 환각한다** ("2,500년에서 2,600년 전의 일", "북한의 몽골비오 연구자"). 두 방식 모두 개체 보존 ≈ 0 — 비교에 무의미하므로 아래 논의에서 제외한다.
+- **실제 오류가 존재하는 정보 구간(CER 5–60%, ${infoMid.length}케이스)에서 제안 방식의 이득이 합성 노이즈 실험처럼 재현되지 않았다:** baseline 개체 보존 ${f(midBe)} vs 제안 ${f(midPe)} (${pp((midPe ?? 0) - (midBe ?? 0))}). ${midPe >= midBe ? "" : "오히려 소폭 낮다. "}합성 노이즈(WER 20–30%)에서는 제안 방식이 +1~4%p 우세했던 것과 대비된다.
+- **추정 원인:** 규칙 기반 합성 노이즈는 "명백히 깨진" 텍스트(\`견키 파주\`)를 만들어 원문·정리문 추출 후보가 서로 어긋나므로 선택적 보정이 신호를 얻는다. 반면 실제 STT 오류는 "유창하지만 틀린" 치환(\`파주\`→\`파저\`, 그럴듯한 오인식)이라 두 추출 경로가 **같은 틀린 값에 합의**해 버려 보정이 발동하지 않거나 틀린 쪽을 고른다.
+- **결론:** 제안 파이프라인은 합성 노이즈라는 통제 환경에서는 개선 경향을 보였으나, 파일럿 규모의 실제 STT 오류에서는 그 이득이 전이되지 않았다. 이는 합성 노이즈와 실제 STT 오류의 **구조적 차이**를 시사하며, 제안 방식의 선택적 보정 트리거(추출 후보 불일치)가 실제 오류 특성에 맞게 재설계되어야 함을 뜻한다.
 
 ## 6. 재현
 
