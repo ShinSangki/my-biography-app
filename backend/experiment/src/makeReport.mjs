@@ -10,7 +10,9 @@ const ROOT = path.resolve(__dirname, "..");
 const RES = path.resolve(ROOT, "results");
 
 function latestRaw() {
-  const files = fs.readdirSync(RES).filter((f) => f.startsWith("phase1_raw_") && f.endsWith(".json"));
+  const files = fs
+    .readdirSync(RES)
+    .filter((f) => f.startsWith("phase1_raw_") && f.endsWith(".json") && f !== "phase1_raw_partial.json");
   if (!files.length) throw new Error("results/ 에 phase1_raw_*.json 이 없습니다.");
   files.sort();
   return path.resolve(RES, files[files.length - 1]);
