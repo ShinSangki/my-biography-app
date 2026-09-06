@@ -20,25 +20,29 @@ function isUnknown(s) {
 }
 
 // ---------- (1) 개체 보존율 ----------
-// 필드별 점수: 완전일치=1.0, 부분포함=0.5, 그 외/불명=0.0
-export function entityFieldScore(goldValue, predValue) {
+// 하나의 예측값(추출기가 쉼표로 여러 값을 나열하기도 함)과 골드 1개를 비교.
+function scoreOne(goldValue, predValue) {
   const g = normalize(goldValue);
   const p = normalize(predValue);
-  if (isUnknown(goldValue)) {
-    // 골드가 불명이면 예측도 불명일 때만 1.0
-    return isUnknown(predValue) ? 1.0 : 0.0;
-  }
   if (isUnknown(predValue)) return 0.0;
   if (g === p) return 1.0;
-  // 예측이 골드를 온전히 포함하면(부가 정보만 추가) 개체는 보존된 것 → 1.0
-  if (p.includes(g)) return 1.0;
-  // 예측이 골드의 일부만 담고 있으면(정보 누락) → 0.5
-  if (g.includes(p)) return 0.5;
-  // 4자리 연도만 일치 → 0.5
+  if (p.includes(g)) return 1.0; // 골드를 온전히 포함(부가 정보만 추가) → 보존됨
+  if (g.includes(p)) return 0.5; // 골드의 일부만 담음(정보 누락)
   const gy = (String(goldValue).match(/\d{4}/) || [])[0];
   const py = (String(predValue).match(/\d{4}/) || [])[0];
-  if (gy && py && gy === py) return 0.5;
+  if (gy && py && gy === py) return 0.5; // 연도만 일치
   return 0.0;
+}
+
+// 필드별 점수: 완전일치=1.0, 부분=0.5, 그 외/불명=0.0.
+// STT 강건성만 분리 측정하기 위해, 추출기가 "A, B, C"처럼 여러 값을 나열하면
+// 구성요소 중 최고 점수를 취한다(정답 개체가 출력에 남아있는지가 관심사).
+export function entityFieldScore(goldValue, predValue) {
+  if (isUnknown(goldValue)) return isUnknown(predValue) ? 1.0 : 0.0;
+  if (isUnknown(predValue)) return 0.0;
+  const parts = String(predValue).split(/[,/·|~→\n]+|(?:\s+및\s+)/).map((x) => x.trim()).filter(Boolean);
+  const cands = parts.length ? parts : [predValue];
+  return Math.max(...cands.map((c) => scoreOne(goldValue, c)));
 }
 
 export function entityScore(gold, pred) {

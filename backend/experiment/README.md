@@ -45,8 +45,26 @@ node makeReport.mjs           # ../results/phase1_report.md 생성
 | `phase1_report.md` | 사람이 읽는 리포트 (표 + 관찰) |
 | `human_eval_template.csv` | 사람 평가(자연스러움/전체 품질, 평가자 2인 5점 리커트)용 빈 양식 |
 
-## 2단계 이후 (예정)
+## 테스트 2·3단계 (RQ2 / RQ3)
 
-- 제안 방식(`/generate-v2`, `selectiveCorrectionService`) 동일 조건 실행 및 baseline과 비교 (RQ2)
-- 오류율 수준별 개선 효과 차이 분석 (RQ3)
-- 사람 평가 집계 (Cohen's kappa)
+> 시간·장소 추출을 본문 정리와 분리하고 불일치 구간만 선택적으로 보정하는 제안 방식이
+> 동일 오류 조건에서 baseline 대비 생성 품질을 개선하는가(RQ2), 그 효과는 오류율에 따라
+> 어떻게 달라지는가(RQ3).
+
+- `src/proposedPipeline.mjs` — 논문 III장 제안 파이프라인 이식본 (원본: `backend/src/services/*`, `POST /generate-v2`)
+- `src/llm.mjs` — Gemini 호출 래퍼(JSON + 429 재시도)
+- `src/runPhase2.mjs` — 1단계와 **동일 데이터셋·노이즈(시드 고정)** 로 제안 방식 실행, 선택적 보정 발동 여부 기록
+- `src/makeReportCompare.mjs` — baseline(phase1) vs 제안(phase2) 대응표본 비교 + 오류율별 개선폭 + 보정 발동률
+
+```bash
+cd backend/experiment/src
+node runPhase1.mjs         # baseline
+node runPhase2.mjs         # 제안 방식 (케이스당 최대 4회 호출)
+node makeReportCompare.mjs # results/compare_report.md
+```
+
+## 이후 (예정)
+
+- 데이터셋 20~30편으로 확대 후 재실행 (현재 16편 → 통계적 검정력 부족)
+- 사람 평가 집계 (Cohen's kappa) — `human_eval_template.csv` + phase2 생성문
+- p값: 정규근사 대응표본 t → 정확 t 분포 또는 윌콕슨 부호순위 검정으로 재계산

@@ -1,0 +1,2315 @@
+{
+  "model": "gemini-2.5-flash",
+  "werLevels": [
+    0,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "rows": [
+    {
+      "sampleId": "S01",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "나는 1953년 봄에 전라남도 순천에서 태어났다. 여섯 살이 되던 해에 아버지를 따라 부산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 서울로 올라와 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를 낳았다.",
+      "gold": {
+        "time": "1953년",
+        "location": "전라남도 순천"
+      },
+      "generated": {
+        "title": "순천에서 서울까지",
+        "time": "1953년 봄, 여섯 살이 되던 해, 열여덟 살, 스물다섯",
+        "location": "전라남도 순천, 부산, 서울",
+        "memoir": "나는 1953년 봄에 전라남도 순천에서 태어났다. 여섯 살에 아버지를 따라 부산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 서울로 올라와 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를 낳았다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문의 내용이 거의 동일하여 시간과 장소 정보 모두 원문 기반의 후보 A가 더 정확하며, 시간 표현의 미묘한 차이는 문맥상 큰 의미 변화가 없습니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1953년 봄, 여섯 살이 되던 해, 열여덟 살, 스물다섯",
+          "location": "전라남도 순천, 부산, 서울"
+        },
+        "fromClean": {
+          "time": "1953년 봄, 여섯 살, 열여덟 살, 스물다섯",
+          "location": "전라남도 순천, 부산, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9989816878618759
+      }
+    },
+    {
+      "sampleId": "S01",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "나는 1953년 봄에 전라남도 순철에사 태어났다. 여섯 살이 되던 해에 아버지를 따라 보산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 서울로 올라와 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를 낳았더.",
+      "gold": {
+        "time": "1953년",
+        "location": "전라남도 순천"
+      },
+      "generated": {
+        "title": "순천에서 서울까지",
+        "time": "1953년 봄, 여섯 살 되던 해, 열여덟 살, 스물다섯",
+        "location": "전라남도 순천, 부산, 서울",
+        "memoir": "나는 1953년 봄에 전라남도 순천에서 태어났다. 여섯 살이 되던 해에 아버지를 따라 부산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 서울로 올라와 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를 낳았다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 '1953년 봄'을 언급하며, 정리문에서 '보산'을 '부산'으로 바로잡은 것이 맥락상 더 자연스러워 보인다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1953년 봄, 여섯 살 되던 해, 열여덟 살, 스물다섯",
+          "location": "전라남도 순천, 보산, 서울"
+        },
+        "fromClean": {
+          "time": "1953년 봄",
+          "location": "전라남도 순천, 부산, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 1
+      }
+    },
+    {
+      "sampleId": "S01",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "너는 1953년 봄에 절라땀도 순천에서 태어났타. 여섯 살이 되던 해에 아버지를 따라 부산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 올라와 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를",
+      "gold": {
+        "time": "1953년",
+        "location": "전라남도 순천"
+      },
+      "generated": {
+        "title": "순천에서 부산, 그리고 상경",
+        "time": "1953년 봄, 여섯 살이 되던 해, 열여덟 살, 스물다섯",
+        "location": "전라남도 순천, 부산, 서울",
+        "memoir": "나는 1953년 봄 전라남도 순천에서 태어났다. 여섯 살이 되던 해에 아버지를 따라 부산으로 이사했고, 그곳에서 초등학교를 마쳤다. 열여덟 살에 상경하여 방직공장에 취직했다. 스물다섯에 결혼해 첫아이를"
+      },
+      "corrected": true,
+      "correctionReason": "시간 정보는 원문과 정리문 모두 명확하며, 정리문에서 더 많은 시간 정보가 추출되었고 '상경'은 '서울'을 의미하므로 원문의 '서울'이 더 적절하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1953년 봄",
+          "location": "전라남도 순천, 부산, 서울"
+        },
+        "fromClean": {
+          "time": "1953년 봄, 여섯 살이 되던 해, 열여덟 살, 스물다섯",
+          "location": "전라남도 순천, 부산, 상경"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9920595677729235
+      }
+    },
+    {
+      "sampleId": "S01",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "나는 1953년 봄엥 전라남도 순천에서 태어났다. 여섯 살이 되던 해에 아버지를 따라 보산으로 그곳에서 초등학교를 마쳤다. 살에 서울로 올라왕 방직공장에 스물다섯에 결혼해 첫아입를",
+      "gold": {
+        "time": "1953년",
+        "location": "전라남도 순천"
+      },
+      "generated": {
+        "title": "1953년 순천 출생과 상경",
+        "time": "1953년 봄",
+        "location": "전라남도 순천",
+        "memoir": "나는 1953년 봄 전라남도 순천에서 태어났다. 여섯 살이 되던 해에 아버지를 따라 보산으로 갔고, 그곳에서 초등학교를 마쳤다. 살에 서울로 올라와 방직공장에 다녔다. 스물다섯에 결혼해 첫 아이를 낳았다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 '1953년 봄 전라남도 순천에서 태어났다'고 명확하게 언급하며, 다른 시간과 장소는 이동 시점이나 추가적인 행위를 나타낸다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1953년 봄",
+          "location": "전라남도 순천"
+        },
+        "fromClean": {
+          "time": "1953년 봄, 여섯 살이 되던 해, 스물다섯",
+          "location": "전라남도 순천, 보산, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9678875255804331
+      }
+    },
+    {
+      "sampleId": "S02",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "내 고향은 강원도 정선이다. 1960년대 후반에 광산이 문을 닫으면서 우리 가족은 원주로 내려왔다. 나는 원주에서 중학교와 고등학교를 다녔다. 군대를 제대한 뒤 1978년에 다시 정선으로 돌아가 농사를 시작했다.",
+      "gold": {
+        "time": "1960년대 후반",
+        "location": "강원도 정선"
+      },
+      "generated": {
+        "title": "강원도 정선과 원주",
+        "time": "1960년대 후반, 1978년",
+        "location": "강원도 정선, 원주",
+        "memoir": "내 고향은 강원도 정선이다. 1960년대 후반에 광산이 문을 닫으면서 우리 가족은 원주로 내려왔다. 나는 원주에서 중학교와 고등학교를 다녔다. 군대를 제대한 뒤 1978년에 다시 정선으로 돌아가 농사를 시작했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        },
+        "fromClean": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 1
+      }
+    },
+    {
+      "sampleId": "S02",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "내 고향은 강원도 정선이다. 1960년대 후반에 문을 닫으면서 우리 가족은 원주로 내려왔다. 나는 원주에서 중학교왑 고등학교를 다녔다. 군대를 제데한 뒤 1978년에 다시 정선으로 돌아가 농사를 시작했다.",
+      "gold": {
+        "time": "1960년대 후반",
+        "location": "강원도 정선"
+      },
+      "generated": {
+        "title": "정선에서 원주, 그리고 다시 정선으로",
+        "time": "1960년대 후반, 1978년",
+        "location": "강원도 정선, 원주",
+        "memoir": "내 고향은 강원도 정선이다. 1960년대 후반에 (탄광이) 문을 닫으면서 우리 가족은 원주로 내려왔다. 나는 원주에서 중학교와 고등학교를 다녔다. 군대를 제대한 뒤 1978년에 다시 정선으로 돌아가 농사를 시작했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        },
+        "fromClean": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9923456192108981
+      }
+    },
+    {
+      "sampleId": "S02",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "내 고향은 강원도 정산입다. 1960년대 후반에 광산이 문을 닫으면서 우리 가족은 원주로 내려왔다. 나는 원죽에서 중학굑와 고등학교를 다녔다. 군대를 제대한 튀 1978년에 다시 정선으로 돌아가 시작했다.",
+      "gold": {
+        "time": "1960년대 후반",
+        "location": "강원도 정선"
+      },
+      "generated": {
+        "title": "정선에서 원주, 그리고 다시 정선으로",
+        "time": "1960년대 후반, 1978년",
+        "location": "강원도 정선, 원주",
+        "memoir": "내 고향은 강원도 정선입니다. 1960년대 후반에 광산이 문을 닫으면서 우리 가족은 원주로 내려왔습니다. 나는 원주에서 중학교와 고등학교를 다녔습니다. 군대를 제대한 뒤 1978년에 다시 정선으로 돌아가 일하기 시작했습니다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        },
+        "fromClean": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9798990215401863
+      }
+    },
+    {
+      "sampleId": "S02",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "네 고향은 강원도 정썬익다. 1960년대 후반에 광산이 문을 닫으면서 우르 가족은 원주로 내려왔다. 나는 월주에서 중학교와 고등학교를 다녔다. 쿤대를 제대한 뒤 1978년애 다십 정선으로 돌아가 농사릴 시작했다.",
+      "gold": {
+        "time": "1960년대 후반",
+        "location": "강원도 정선"
+      },
+      "generated": {
+        "title": "정선에서 원주, 다시 정선으로",
+        "time": "1960년대 후반, 1978년",
+        "location": "강원도 정선, 원주",
+        "memoir": "고향은 강원도 정선이다. 1960년대 후반 광산이 문을 닫으면서 가족은 원주로 내려왔다. 원주에서 중학교와 고등학교를 다녔다. 군대를 제대한 뒤 1978년에 다시 정선으로 돌아가 농사를 시작했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        },
+        "fromClean": {
+          "time": "1960년대 후반, 1978년",
+          "location": "강원도 정선, 원주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9826777507477742
+      }
+    },
+    {
+      "sampleId": "S03",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1945년 광복이 되던 해에 나는 평안북도 신의주에 살고 있었다. 이듬해 겨울에 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴전 후에 다시 서울로 올라왔다.",
+      "gold": {
+        "time": "1945년",
+        "location": "평안북도 신의주"
+      },
+      "generated": {
+        "title": "평안북도 신의주에서 서울 정착까지",
+        "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+        "location": "평안북도 신의주, 삼팔선, 서울, 대구",
+        "memoir": "1945년 광복이 되던 해에 나는 평안북도 신의주에 살고 있었다. 이듬해 겨울에 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴전 후에 다시 서울로 올라왔다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 삼팔선, 서울, 대구"
+        },
+        "fromClean": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 삼팔선, 서울, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9999999999999998
+      }
+    },
+    {
+      "sampleId": "S03",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "1945녕 광복이 되던 해에 평안북도 신의주에 살고 있었다. 이듬해 겨울에 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 갔고, 휴전 후에 다시 서울로 올라왔다.",
+      "gold": {
+        "time": "1945년",
+        "location": "평안북도 신의주"
+      },
+      "generated": {
+        "title": "광복, 분단, 그리고 한국전쟁",
+        "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+        "location": "평안북도 신의주, 삼팔선, 서울, 대구",
+        "memoir": "1945년 광복이 되던 해에 평안북도 신의주에 살고 있었다. 이듬해 겨울 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 갔고, 휴전 후에 다시 서울로 올라왔다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 삼팔선, 서울, 대구"
+        },
+        "fromClean": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 삼팔선, 서울, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9880972926601868
+      }
+    },
+    {
+      "sampleId": "S03",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "1945녈 광복이 되던 해애 나는 평안북도 신의주에 살고 있었다. 이듬해 겨울에 어머니와 함께 넘어 서울에 청착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴전 후에 다시 써울로 올라왔다.",
+      "gold": {
+        "time": "1945년",
+        "location": "평안북도 신의주"
+      },
+      "generated": {
+        "title": "광복과 한국전쟁",
+        "time": "1945년 광복이 되던 해, 이듬해 겨울, 한국전쟁, 휴전 후",
+        "location": "평안북도 신의주, 서울, 대구",
+        "memoir": "1945년 광복이 되던 해에 나는 평안북도 신의주에 살고 있었다. 이듬해 겨울 어머니와 함께 서울에 정착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴전 후에 다시 서울로 올라왔다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 시간과 장소 정보가 일치하며, '1945년 광복이 되던 해'는 더 구체적인 시간 정보를 제공한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 서울, 대구"
+        },
+        "fromClean": {
+          "time": "1945년 광복이 되던 해, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주, 서울, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9934123298467866
+      }
+    },
+    {
+      "sampleId": "S03",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "1945 되덜 해에 나는 평앙북토 신읩주엡 살고 있었다. 이듬해 겨울에 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴잔 후에 타시 서울로",
+      "gold": {
+        "time": "1945년",
+        "location": "평안북도 신의주"
+      },
+      "generated": {
+        "title": "피란과 서울 정착",
+        "time": "1945년, 이듬해 겨울, 한국전쟁 발발 시점, 휴전 후",
+        "location": "평안북도 신의주, 삼팔선, 서울, 대구",
+        "memoir": "1945년에 평안북도 신의주에 살았다. 이듬해 겨울에 어머니와 함께 삼팔선을 넘어 서울에 정착했다. 한국전쟁이 터지자 대구로 피란을 갔고, 휴전 후에 다시 서울로 돌아왔다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문은 원문의 '되덜 해에'를 '년에'로 명확하게 보정했고, 시간과 장소 정보는 원문과 정리문 모두에서 일관되게 나타나므로 정리문의 내용이 더 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1945년, 이듬해 겨울, 한국전쟁, 휴전 후",
+          "location": "평안북도 신의주읍, 삼팔선, 서울, 대구"
+        },
+        "fromClean": {
+          "time": "1945년, 이듬해 겨울(1946년 겨울), 한국전쟁 발발 시점, 휴전 후",
+          "location": "평안북도 신의주, 삼팔선, 서울, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9619139110664086
+      }
+    },
+    {
+      "sampleId": "S04",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "나는 1971년 대전에서 자랐다. 고등학교를 졸업하고 1990년에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 작은 철물점을 열었다. 2005년에 가게를 정리하고 지금은 제주도에서 귤 농장을 하고 있다.",
+      "gold": {
+        "time": "1971년",
+        "location": "대전"
+      },
+      "generated": {
+        "title": "나의 삶의 궤적",
+        "time": "1971년, 1990년, 3년 뒤 (1993년), 2005년, 현재",
+        "location": "대전, 울산 현대조선소, 인천, 제주도",
+        "memoir": "나는 1971년 대전에서 자랐다. 고등학교 졸업 후 1990년에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 작은 철물점을 열었다. 2005년에 가게를 정리하고 현재 제주도에서 귤 농장을 운영 중이다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '3년 뒤'를 명확히 '1993년'으로 해석한 후보 B가 더 신뢰할 수 있으며, 나머지 시간과 장소는 두 후보 모두 동일하게 정확하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1971년, 1990년, 3년 뒤, 2005년, 지금",
+          "location": "대전, 울산 현대조선소, 인천, 제주도"
+        },
+        "fromClean": {
+          "time": "1971년, 1990년, 3년 뒤 (1993년), 2005년, 현재",
+          "location": "대전, 울산 현대조선소, 인천, 제주도"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9983063703270019
+      }
+    },
+    {
+      "sampleId": "S04",
+      "targetWer": 0.1,
+      "actualWer": 0.10714285714285714,
+      "noisyText": "나는 1971년 대전액서 자랐다. 고등학교를 졸업하고 1990년에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 철물점을 열었다. 2005년에 가게를 지금은 제주도에서 귤 농장을 하고 있다.",
+      "gold": {
+        "time": "1971년",
+        "location": "대전"
+      },
+      "generated": {
+        "title": "대전에서 제주까지",
+        "time": "1971년, 1990년, 3년 뒤(1993년), 2005년, 지금",
+        "location": "대전, 울산 현대조선소, 인천, 제주도",
+        "memoir": "나는 1971년 대전에서 자랐다. 고등학교 졸업 후 1990년 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 철물점을 열었다. 2005년에 가게를 정리했고, 지금은 제주도에서 귤 농장을 하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '대전액서'가 '대전에서'로, '가게를' 뒤에 '정리했고'가 추가되어 문맥이 자연스러워졌고, '3년 뒤'가 '1993년'으로 명확해졌다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1971년, 1990년, 3년 뒤, 2005년, 지금",
+          "location": "대전, 울산 현대조선소, 인천, 제주도"
+        },
+        "fromClean": {
+          "time": "1971년, 1990년, 3년 뒤(1993년), 2005년, 지금",
+          "location": "대전, 울산 현대조선소, 인천, 제주도"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9979421907515236
+      }
+    },
+    {
+      "sampleId": "S04",
+      "targetWer": 0.2,
+      "actualWer": 0.21428571428571427,
+      "noisyText": "나는 1971년 대전에서 자랐다. 고등학교를 1990녕에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 작인 철물점을 열었다. 2005년에 정리하고 지금응 귤 농장을 하고 있다.",
+      "gold": {
+        "time": "1971년",
+        "location": "대전"
+      },
+      "generated": {
+        "title": "나의 삶의 궤적",
+        "time": "1971년, 1990년, 3년 뒤(1993년), 2005년, 현재",
+        "location": "대전, 울산 현대조선소, 인천, 알 수 없음 (귤 농장)",
+        "memoir": "나는 1971년 대전에서 자랐다. 고등학교를 졸업하고 1990년에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천으로 옮겨 작은 철물점을 열었다. 2005년에 철물점을 정리하고 지금은 귤 농장을 하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문이 원문의 '고등학교를 1990녕에' 부분을 '고등학교를 졸업하고 1990년에'로 더 명확하게 하여 신뢰성이 높지만, '지금응'은 '지금은'으로 보정되었으나 '귤 농장을 하고 있다'는 현재의 장소를 특정하지 않아 '알 수 없음'이 정확하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1971년, 1990년, 3년 뒤(1993년), 2005년, 현재",
+          "location": "대전, 울산 현대조선소, 인천, 알 수 없음"
+        },
+        "fromClean": {
+          "time": "1971년, 1990년, 3년 뒤(1993년), 2005년",
+          "location": "대전, 울산 현대조선소, 인천"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9916462585218315
+      }
+    },
+    {
+      "sampleId": "S04",
+      "targetWer": 0.3,
+      "actualWer": 0.2857142857142857,
+      "noisyText": "나는 1971년 대전에서 자랐다. 고등학교를 졸업하고 1990년에 올산 현대조선소에 입사했다. 3년 뒤 횡사를 그만두고 인철으로 작인 찰물점을 열었다. 가게를 지금은 제주도에서 귤 농장을 하고 있다.",
+      "gold": {
+        "time": "1971년",
+        "location": "대전"
+      },
+      "generated": {
+        "title": "현대조선소 입사 그리고 창업",
+        "time": "1971년, 1990년, 1993년, 지금",
+        "location": "대전, 울산 현대조선소, 인천, 제주도",
+        "memoir": "나는 1971년 대전에서 자랐다. 고등학교를 졸업하고 1990년에 울산 현대조선소에 입사했다. 3년 뒤 회사를 그만두고 인천에서 작은 철물점을 열었다. 지금은 제주도에서 귤 농장을 하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '올산'이 '울산'으로, '인철'이 '인천'으로 올바르게 보정되었고, '3년 뒤'가 1993년을 의미함을 명확히 하므로 정리문 기반의 B가 더 신뢰성이 높다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1971년, 1990년, 3년 뒤",
+          "location": "대전, 올산 현대조선소, 인철, 제주도"
+        },
+        "fromClean": {
+          "time": "1971년, 1990년, 3년 뒤 (1993년), 지금",
+          "location": "대전, 울산 현대조선소, 인천, 제주도"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9960540640214097
+      }
+    },
+    {
+      "sampleId": "S05",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1938년에 경상북도 안동의 한 종갓집에서 맏딸로 태어났다. 열일곱에 예천으로 시집을 갔다. 스물셋에 남편을 여의고 삯바느질로 아이 넷을 키웠다. 예순이 넘어서야 대구에 사는 막내아들 집으로 들어갔다.",
+      "gold": {
+        "time": "1938년",
+        "location": "경상북도 안동"
+      },
+      "generated": {
+        "title": "홀로 네 아이를 키우다",
+        "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+        "location": "경상북도 안동, 예천, 대구",
+        "memoir": "1938년에 경상북도 안동의 종갓집 맏딸로 태어났다. 열일곱에 예천으로 시집을 갔고, 스물셋에 남편을 여의었다. 삯바느질로 아이 넷을 키웠다. 예순이 넘어서 대구에 사는 막내아들 집으로 들어갔다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+          "location": "경상북도 안동, 예천, 대구"
+        },
+        "fromClean": {
+          "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+          "location": "경상북도 안동, 예천, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9960603960824278
+      }
+    },
+    {
+      "sampleId": "S05",
+      "targetWer": 0.1,
+      "actualWer": 0.12,
+      "noisyText": "1938년에 경상북도 안동의 한 종갓집에서 맛딸로 태어났다. 열일굽에 예천으로 시집을 갔다. 스물셋에 남편을 여의고 삯바느질로 아이 넷을 키웠다. 예순이 넘어서야 대구애 사는 막내아들 집으로 들어갔다.",
+      "gold": {
+        "time": "1938년",
+        "location": "경상북도 안동"
+      },
+      "generated": {
+        "title": "종갓집 맛딸, 네 아이의 어머니",
+        "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+        "location": "경상북도 안동, 예천, 대구",
+        "memoir": "1938년 경상북도 안동의 한 종갓집에서 맏딸로 태어났다. 열일곱에 예천으로 시집을 갔다. 스물셋에 남편을 여의고 삯바느질로 아이 넷을 키웠다. 예순이 넘어서 대구에 사는 막내아들 집으로 들어갔다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두에서 시간과 장소 정보가 일관되며, '예순이 넘어서'는 정리문의 표현이 더 자연스럽다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1938년, 열일곱, 스물셋, 예순 넘어서",
+          "location": "경상북도 안동, 예천, 대구"
+        },
+        "fromClean": {
+          "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+          "location": "경상북도 안동, 예천, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9985541190888428
+      }
+    },
+    {
+      "sampleId": "S05",
+      "targetWer": 0.2,
+      "actualWer": 0.2,
+      "noisyText": "1938년에 경상북도 안동의 한 종갓집에서 맏딸로 태어났다. 열일곱에 예천으로 시집을 갔다. 스물셋에 남편을 여의공 삯바느질루 아으 넷을 키웠다. 예순으 넘어서야 대구에 사는 막내아들 집으로 들어캈다.",
+      "gold": {
+        "time": "1938년",
+        "location": "경상북도 안동"
+      },
+      "generated": {
+        "title": "홀로 네 자녀를 키우다",
+        "time": "1938년, 열일곱(1955년), 스물셋(1961년), 예순 넘어(1998년 이후)",
+        "location": "경상북도 안동, 예천, 대구",
+        "memoir": "1938년 경상북도 안동의 종갓집 맏딸로 태어났다. 열일곱에 예천으로 시집을 갔고, 스물셋에 남편을 여의고 삯바느질로 네 자녀를 키웠다. 예순이 넘어서 대구에 사는 막내아들 집으로 들어갔다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 시간 표현의 변화가 없고, 후보 A가 나이를 연도로 환산한 것이 더 신뢰할 수 있는 구체적인 시간 정보다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1938년, 열일곱(1955년), 스물셋(1961년), 예순 넘어(1998년 이후)",
+          "location": "경상북도 안동, 예천, 대구"
+        },
+        "fromClean": {
+          "time": "1938년, 열일곱, 스물셋, 예순이 넘어서",
+          "location": "경상북도 안동, 예천, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9942202967979444
+      }
+    },
+    {
+      "sampleId": "S05",
+      "targetWer": 0.3,
+      "actualWer": 0.32,
+      "noisyText": "1938년에 경상북도 언동읭 한 종갓집에서 맏딸로 태어났다. 씨집을 갔다. 스물셋에 남편을 여의고 삯바느질로 아이 뗏을 키웠다. 예순이 넘어서야 대구에 싸는 막내아틀 집으로",
+      "gold": {
+        "time": "1938년",
+        "location": "경상북도 안동"
+      },
+      "generated": {
+        "title": "종갓집 맏딸의 삶",
+        "time": "1938년",
+        "location": "경상북도 언동, 대구",
+        "memoir": "1938년 경상북도 언동의 한 종갓집에서 맏딸로 태어났다. 스물셋에 남편과 사별하고, 삯바느질로 아이 셋을 키웠다. 예순이 넘어서 대구에 사는 막내아들 집으로 거처를 옮겼다."
+      },
+      "corrected": true,
+      "correctionReason": "1938년은 두 후보 모두 동일하게 추출했고, 장소는 생애를 아우르는 두 개의 명확한 위치이므로 정리문에 나타난 두 장소 모두 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1938년",
+          "location": "경상북도 언동"
+        },
+        "fromClean": {
+          "time": "1938년, 스물셋(알 수 없음), 예순이 넘어서(알 수 없음)",
+          "location": "경상북도 언동, 대구"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 0,
+        "entity_mean": 0.5,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9399536437814399
+      }
+    },
+    {
+      "sampleId": "S06",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "우리 집은 서울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비아 건설 현장에 파견 노동자로 나갔다가 2년 만에 돌아왔다.",
+      "gold": {
+        "time": "1966년",
+        "location": "서울 종로구 익선동"
+      },
+      "generated": {
+        "title": "익선동에서 광주, 그리고 사우디",
+        "time": "1966년, 1980년",
+        "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아",
+        "memoir": "우리 집은 서울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비아 건설 현장에 파견 노동자로 나갔다가 2년 만에 돌아왔다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두에서 '2년 만에'는 기간을 나타내지만 특정 시점이 아니므로 후보 B가 더 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1966년, 1980년, 2년 후",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        },
+        "fromClean": {
+          "time": "1966년, 1980년",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9999999999999998
+      }
+    },
+    {
+      "sampleId": "S06",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "집은 서울 종로구 익선통애 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비아 건설 현장엡 파견 노동자로 나갔다가 2년 만에 돌아왔다.",
+      "gold": {
+        "time": "1966년",
+        "location": "서울 종로구 익선동"
+      },
+      "generated": {
+        "title": "익선동에서 광주, 그리고 사우디아라비아",
+        "time": "1966년, 1980년, 2년 만",
+        "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아",
+        "memoir": "집은 서울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비아 건설 현장에 파견 노동자로 나갔다가 2년 만에 돌아왔다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 '2년 만에 돌아왔다'고 명시하고 있어, '2년 만'이 더 정확한 시간 표현이다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1966년, 1980년, 2년 만",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        },
+        "fromClean": {
+          "time": "1966년, 1980년, 2년 후",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9981096821515124
+      }
+    },
+    {
+      "sampleId": "S06",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "우리 집은 상울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비압 건설 현장에 파견 노동작로 나갔다가 2년 먼에",
+      "gold": {
+        "time": "1966년",
+        "location": "서울 종로구 익선동"
+      },
+      "generated": {
+        "title": "익선동에서 광주, 그리고 사우디",
+        "time": "1966년, 1980년",
+        "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아",
+        "memoir": "우리 집은 서울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 이사했다. 나는 그곳에서 농고를 다녔다. 1980년에 사우디아라비아 건설 현장에 파견 노동자로 나갔다가 2년 만에"
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1966년, 1980년",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        },
+        "fromClean": {
+          "time": "1966년, 1980년",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9982080742450781
+      }
+    },
+    {
+      "sampleId": "S06",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "우리 집은 서울 종루쿠 익선동 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 나는 농고를 다녔다. 1980년에 사우디아라비아 건설 현창에 노동자로 2년 만에",
+      "gold": {
+        "time": "1966년",
+        "location": "서울 종로구 익선동"
+      },
+      "generated": {
+        "title": "익선동에서 광주로, 그리고 사우디",
+        "time": "1966년, 1980년",
+        "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아",
+        "memoir": "우리 집은 서울 종로구 익선동에 있었다. 1966년에 아버지 사업이 어려워져 경기도 광주로 갔다. 나는 농고를 다녔다. 1980년에 사우디아라비아 건설 현장에 노동자로 가서 2년 만에"
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1966년, 1980년",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        },
+        "fromClean": {
+          "time": "1966년, 1980년",
+          "location": "서울 종로구 익선동, 경기도 광주, 사우디아라비아"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.991040467529326
+      }
+    },
+    {
+      "sampleId": "S07",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "나는 1958년 여름 충청남도 서산의 바닷가 마을에서 태어났다. 초등학교만 마치고 열네 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작했다.",
+      "gold": {
+        "time": "1958년 여름",
+        "location": "충청남도 서산"
+      },
+      "generated": {
+        "title": "서울 봉제공장과 김 양식",
+        "time": "1958년 여름, 열네 살, 스무 살, 1985년",
+        "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향",
+        "memoir": "나는 1958년 여름 충청남도 서산의 바닷가 마을에서 태어났다. 초등학교만 마치고 열네 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1958년 여름, 열네 살, 스무 살, 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향"
+        },
+        "fromClean": {
+          "time": "1958년 여름, 열네 살, 스무 살, 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9999999999999999
+      }
+    },
+    {
+      "sampleId": "S07",
+      "targetWer": 0.1,
+      "actualWer": 0.10344827586206896,
+      "noisyText": "나는 1958년 역르 충청나토 서산의 바닷가 마을에서 태어났다. 초등학교만 마치고 열네 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작해다.",
+      "gold": {
+        "time": "1958년 여름",
+        "location": "충청남도 서산"
+      },
+      "generated": {
+        "title": "충청남도 서산에서 서울 청계천 봉제공장까지",
+        "time": "1958년, 열네 살(시기 미상), 스무 살(시기 미상), 1985년",
+        "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향(충청남도 서산 바닷가 마을)",
+        "memoir": "나는 1958년 충청남도 서산의 바닷가 마을에서 태어났다. 초등학교만 마치고 열네 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작했다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '서산의 바닷가 마을'이 '서산'으로 축약되었지만, 원문의 '바닷가 마을에서 태어났다'와 1985년에 돌아온 '고향'을 고려하면 '바닷가 마을'까지 포함하는 것이 더 정확한 맥락이다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1958년, 열네 살(시기 미상), 스무 살(시기 미상), 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향(충청남도 서산 바닷가 마을)"
+        },
+        "fromClean": {
+          "time": "1958년, 열네 살(시기 미상), 스무 살(시기 미상), 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향(충청남도 서산)"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 0.5,
+        "entity_location": 1,
+        "entity_mean": 0.75,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9937998542163677
+      }
+    },
+    {
+      "sampleId": "S07",
+      "targetWer": 0.2,
+      "actualWer": 0.20689655172413793,
+      "noisyText": "1958년 여름 충청남도 서상 바닷가 머을에서 태어났다. 초등학교만 마치고 열떼 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 약간 학굥를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작했다.",
+      "gold": {
+        "time": "1958년 여름",
+        "location": "충청남도 서산"
+      },
+      "generated": {
+        "title": "청계천 봉제공장과 김 양식",
+        "time": "1958년 여름, 초등학교를 마치고 열세 살, 스무 살, 1985년",
+        "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장",
+        "memoir": "1958년 여름 충청남도 서산 바닷가 마을에서 태어났다. 초등학교를 마치고 열세 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 김 양식을 시작했다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '서상'이 '서산'으로, '열떼 살'이 '열세 살'로, '학굥를'이 '학교를'로 교정되어 더 정확하다고 판단되며, 고향은 '충청남도 서산 바닷가 마을'을 지칭한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1958년 여름, 열세 살 (초등학교 졸업 후), 스무 살 (검정고시), 1985년",
+          "location": "충청남도 서상 바닷가 마을, 서울 청계천 봉제공장, 고향 (충청남도 서상 바닷가 마을)"
+        },
+        "fromClean": {
+          "time": "1958년 여름, 초등학교를 마치고 열세 살, 스무 살, 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.981329221836531
+      }
+    },
+    {
+      "sampleId": "S07",
+      "targetWer": 0.3,
+      "actualWer": 0.3103448275862069,
+      "noisyText": "너는 1958녕 역림 충청남도 써산 바닷가 마을에서 태어났다. 초등학교만 마치고 연네 살에 서울 청계천 퐁제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돈아와 금 시작했다.",
+      "gold": {
+        "time": "1958년 여름",
+        "location": "충청남도 서산"
+      },
+      "generated": {
+        "title": "청계천 봉제공장 그리고 귀향",
+        "time": "1958년, 열네 살, 스무 살, 1985년",
+        "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향",
+        "memoir": "나는 1958년 충청남도 서산 바닷가 마을에서 태어났다. 초등학교만 마치고 열네 살에 서울 청계천 봉제공장에 들어갔다. 스무 살에 야간 학교를 다니며 검정고시를 봤다. 1985년에 고향으로 돌아와 농사를 짓기 시작했다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두에서 시간과 장소 정보가 일관되게 나타나며, '연네 살'은 '열네 살'의 오인식으로 판단된다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1958년, 연네 살, 스무 살, 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향"
+        },
+        "fromClean": {
+          "time": "1958년, 열네 살, 스무 살, 1985년",
+          "location": "충청남도 서산 바닷가 마을, 서울 청계천 봉제공장, 고향"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 0.5,
+        "entity_location": 1,
+        "entity_mean": 0.75,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9620697537915566
+      }
+    },
+    {
+      "sampleId": "S08",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1949년에 황해도 해주에서 태어났지만 두 살 때 전쟁을 피해 남쪽으로 내려와 거의 기억이 없다. 자란 곳은 인천 만석동이다. 1975년에 결혼하면서 부천에 신혼집을 얻었고, 남편 직장을 따라 1990년에 창원으로 내려갔다.",
+      "gold": {
+        "time": "1949년",
+        "location": "황해도 해주"
+      },
+      "generated": {
+        "title": "황해도에서 인천, 부천, 창원까지",
+        "time": "1949년, 두 살 때 (1951년 경), 1975년, 1990년",
+        "location": "황해도 해주, 남쪽, 인천 만석동, 부천, 창원",
+        "memoir": "1949년 황해도 해주에서 태어났다. 두 살 때 전쟁을 피해 남쪽으로 내려왔기 때문에 해주에 대한 기억은 거의 없다. 인천 만석동에서 성장했다. 1975년에 결혼하며 부천에 신혼집을 마련했고, 남편의 직장을 따라 1990년에 창원으로 이주했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1949년, 두 살 때 (1951년 경), 1975년, 1990년",
+          "location": "황해도 해주, 남쪽, 인천 만석동, 부천, 창원"
+        },
+        "fromClean": {
+          "time": "1949년, 두 살 때 (1951년 경), 1975년, 1990년",
+          "location": "황해도 해주, 남쪽, 인천 만석동, 부천, 창원"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9918550260180196
+      }
+    },
+    {
+      "sampleId": "S08",
+      "targetWer": 0.1,
+      "actualWer": 0.10344827586206896,
+      "noisyText": "1949뗜에 황해도 해주에서 태어났지만 두 살 때 전쟁을 피해 남쪽으로 내려와 거의 기억이 없다. 자란 콧은 인천 만석동이다. 1975년에 결혼하면서 신혼집을 얻었고, 남편 직장을 따라 1990년에 창원으로 내려갔다.",
+      "gold": {
+        "time": "1949년",
+        "location": "황해도 해주"
+      },
+      "generated": {
+        "title": "남쪽으로 내려와 정착하기까지",
+        "time": "1949년, 1975년, 1990년",
+        "location": "황해도 해주, 인천 만석동, 창원",
+        "memoir": "1949년 황해도 해주에서 태어났지만 두 살 때 전쟁을 피해 남쪽으로 내려와 거의 기억이 없다. 자란 곳은 인천 만석동이다. 1975년에 결혼하면서 신혼집을 얻었고, 남편 직장을 따라 1990년에 창원으로 내려갔다."
+      },
+      "corrected": true,
+      "correctionReason": "두 살 때와 남쪽은 특정 시점이나 장소라기보다 일반적인 언급이며, 원문과 정리문 모두 주요 시간과 장소는 동일하게 명시되어 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1949년, 1975년, 1990년",
+          "location": "황해도 해주, 인천 만석동, 창원"
+        },
+        "fromClean": {
+          "time": "1949년, 두 살 때 (전쟁), 1975년, 1990년",
+          "location": "황해도 해주, 남쪽, 인천 만석동, 창원"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9934785304676561
+      }
+    },
+    {
+      "sampleId": "S08",
+      "targetWer": 0.2,
+      "actualWer": 0.20689655172413793,
+      "noisyText": "1949년에 황해도 해주에서 태어났지만 살 때 전쟁을 피해 남쪽으로 내려와 거의 기억이 없타. 곳은 인천 만석동이다. 결혼하면사 부천에 얻었고, 남편 직장을 따라 1990년에 창원으로 내려갔다.",
+      "gold": {
+        "time": "1949년",
+        "location": "황해도 해주"
+      },
+      "generated": {
+        "title": "인천, 부천, 창원에서의 삶",
+        "time": "1949년, 1990년",
+        "location": "황해도 해주, 인천 만석동, 부천, 창원",
+        "memoir": "1949년 황해도 해주에서 태어났지만, 전쟁을 피해 남쪽으로 내려와 해주에 대한 기억은 거의 없다. 인천 만석동에서 살았고, 결혼 후에는 부천에 집을 얻었다. 1990년 남편 직장을 따라 창원으로 이사했다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 1949년과 1990년을 명확히 언급하며, '살 때 전쟁을 피해 남쪽으로 내려와'는 시기를 특정하기보다 기간을 나타내므로, 명확한 시점은 1949년과 1990년이 더 적절하다. 장소는 원문과 정리문에서 모두 동일하게 언급된다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1949년, 살 때(전쟁 기간), 1990년",
+          "location": "황해도 해주, 인천 만석동, 부천, 창원"
+        },
+        "fromClean": {
+          "time": "1949년, 1990년",
+          "location": "황해도 해주, 인천 만석동, 부천, 창원"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9775917100545141
+      }
+    },
+    {
+      "sampleId": "S08",
+      "targetWer": 0.3,
+      "actualWer": 0.3103448275862069,
+      "noisyText": "1949년에 화해두 해주에서 태어났지만 두 살 떼 전쟁을 피해 남쪽이로 내령와 거의 기억이 없다. 자란 곳은 인천 만석동이다. 1975년에 견혼하면서 부천에 신혼집을 앋었고, 남편 직장을 따러 1990년애 창원으로 내령갔다.",
+      "gold": {
+        "time": "1949년",
+        "location": "황해도 해주"
+      },
+      "generated": {
+        "title": "화해두, 인천, 그리고 부천, 창원",
+        "time": "1949년, 두 살 때, 1975년, 1990년",
+        "location": "화해두 해주, 남쪽, 인천 만석동, 부천, 창원",
+        "memoir": "1949년에 화해두 해주에서 태어났지만, 두 살 때 전쟁을 피해 남쪽으로 내려와 거의 기억이 없다. 자란 곳은 인천 만석동이다. 1975년에 결혼하면서 부천에 신혼집을 얻었고, 남편 직장을 따라 1990년에 창원으로 내려갔다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 시간과 장소 정보가 일관되며, '두 살 떼'와 '2살 때'는 의미상 동일하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1949년, 두 살 때, 1975년, 1990년",
+          "location": "화해두 해주, 남쪽, 인천 만석동, 부천, 창원"
+        },
+        "fromClean": {
+          "time": "1949년, 2살 때, 1975년, 1990년",
+          "location": "화해두 해주, 남쪽, 인천 만석동, 부천, 창원"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 0,
+        "entity_mean": 0.5,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9874194690548449
+      }
+    },
+    {
+      "sampleId": "S09",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "내가 태어난 해는 1964년이고 태어난 곳은 광주광역시 양동이다. 아버지는 시장에서 생선을 팔았다. 나는 1983년에 전남대학교에 입학했지만 이듬해 시위에 연루되어 제적당했다. 1994년에 복학해 마흔 살에 겨우 졸업장을 받았다.",
+      "gold": {
+        "time": "1964년",
+        "location": "광주광역시 양동"
+      },
+      "generated": {
+        "title": "나의 삶의 궤적",
+        "time": "1964년, 1983년, 1984년, 1994년, 마흔 살",
+        "location": "광주광역시 양동, 시장, 전남대학교",
+        "memoir": "나는 1964년 광주광역시 양동에서 태어났다. 아버지는 시장에서 생선을 팔았다. 1983년 전남대학교에 입학했으나 이듬해 시위에 연루되어 제적당했다. 1994년에 복학하여 마흔 살에 졸업했다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두에서 일관되게 언급되는 시간과 장소들을 포함하며, '시장'은 아버지가 생선을 판 장소로 명확하므로 포함하는 것이 더 정확하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1964년, 1983년, 1984년, 1994년, 마흔 살 (졸업 당시)",
+          "location": "광주광역시 양동, 시장, 전남대학교"
+        },
+        "fromClean": {
+          "time": "1964년, 1983년, 1984년, 1994년",
+          "location": "광주광역시 양동, 전남대학교"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9911490988193492
+      }
+    },
+    {
+      "sampleId": "S09",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "내가 태어난 해는 1964년이고 태어난 곳은 광주광역시 양동이다. 시장에서 생선을 팔았다. 나는 1983년에 전남대학교에 입학했지만 이듬해 시위에 연루되어 제적당했다. 1994년에 마흔 쌀에 겨우 졸업장을 받았다.",
+      "gold": {
+        "time": "1964년",
+        "location": "광주광역시 양동"
+      },
+      "generated": {
+        "title": "1964년 광주 출생, 늦은 졸업",
+        "time": "1964년, 1983년, 1984년, 1994년",
+        "location": "광주광역시 양동, 전남대학교",
+        "memoir": "나는 1964년 광주광역시 양동에서 태어났다. 시장에서 생선을 팔았다. 1983년에 전남대학교에 입학했지만 이듬해 시위에 연루되어 제적당했다. 1994년에 마흔 살에 졸업장을 받았다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 동일한 시간 및 장소 정보를 포함하고 있으며, '이듬해'는 1983년 다음 해인 1984년을 명확히 지칭한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1964년, 1983년, 1984년, 1994년",
+          "location": "광주광역시 양동, 전남대학교"
+        },
+        "fromClean": {
+          "time": "1964년, 1983년, 이듬해(1984년), 1994년",
+          "location": "광주광역시 양동, 전남대학교"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9794589907793037
+      }
+    },
+    {
+      "sampleId": "S09",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "태어난 해는 1964년이고 태어난 곳은 광주광역시 양동이다. 아버지는 시장에서 생선을 팔았다. 나는 1983년에 전남대학교에 이듬해 시위에 연루되아 제적당했다. 복학해 마흔 산에 겨우 졸업장을 받았다.",
+      "gold": {
+        "time": "1964년",
+        "location": "광주광역시 양동"
+      },
+      "generated": {
+        "title": "나의 삶의 궤적",
+        "time": "1964년, 1983년, 이듬해, 마흔 살",
+        "location": "광주광역시 양동, 시장, 전남대학교",
+        "memoir": "나는 1964년 광주광역시 양동에서 태어났다. 아버지는 시장에서 생선을 팔았다. 1983년 전남대학교에 입학했고, 이듬해 시위에 연루되어 제적당했다. 복학하여 마흔 살에 졸업했다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '이듬해'와 '마흔 살'이 명확하게 시간 정보로 추가되었고, '시장'은 아버지가 생선을 판 장소로 정리문에서 더 명확하게 장소로 인식될 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1964년, 1983년",
+          "location": "광주광역시 양동, 전남대학교"
+        },
+        "fromClean": {
+          "time": "1964년, 1983년, 이듬해, 마흔 살",
+          "location": "광주광역시 양동, 시장, 전남대학교"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9867033920925096
+      }
+    },
+    {
+      "sampleId": "S09",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "태어난 해는 1964년이고 태어난 곳은 광주광역시 양동이다. 아버지는 시장에서 생선을 팔았타. 1983년에 전남대학교에 입헉했지만 이듬해 시위에 연루되어 제적당했다. 1994뗜에 마흔 살애 격우 졸업장을 받았다.",
+      "gold": {
+        "time": "1964년",
+        "location": "광주광역시 양동"
+      },
+      "generated": {
+        "title": "성장과 학업",
+        "time": "1964년, 1983년, 1984년, 1994년",
+        "location": "광주광역시 양동, 전남대학교, 시장",
+        "memoir": "나는 1964년에 광주광역시 양동에서 태어났다. 아버지는 시장에서 생선을 파셨다. 1983년에 전남대학교에 입학했지만 이듬해 시위에 연루되어 제적당했다. 1994년에 마흔 살에 졸업장을 받았다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문의 '이듬해'가 1984년을 명확히 나타내며, 원문과 정리문 모두에서 시장이 언급되어 장소로 포함하는 것이 적절하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1964년, 1983년, 이듬해, 1994년",
+          "location": "광주광역시 양동, 전남대학교, 시장"
+        },
+        "fromClean": {
+          "time": "1964년, 1983년, 1984년, 1994년",
+          "location": "광주광역시 양동, 전남대학교"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9916344707006332
+      }
+    },
+    {
+      "sampleId": "S10",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1955년 겨울에 경기도 파주 문산에서 태어났다. 휴전선이 가까워 어릴 때 늘 대남방송 소리를 들으며 잤다. 열아홉에 상경해 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다.",
+      "gold": {
+        "time": "1955년 겨울",
+        "location": "경기도 파주 문산"
+      },
+      "generated": {
+        "title": "파주에서 안양까지",
+        "time": "1955년 겨울, 1974년, 1984년",
+        "location": "경기도 파주 문산, 영등포, 안양",
+        "memoir": "1955년 겨울, 경기도 파주 문산에서 태어났다. 휴전선과 가까워 어릴 때 늘 대남방송 소리를 들으며 잠들었다. 열아홉에 상경하여 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼하여 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 명확하게 동일한 시간과 장소 정보를 제공하며, '열아홉'은 1955년생 기준으로 1974년에 해당한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1955년 겨울, 열아홉(1974년), 1984년",
+          "location": "경기도 파주 문산, 영등포, 안양"
+        },
+        "fromClean": {
+          "time": "1955년 겨울, 열아홉, 1984년",
+          "location": "경기도 파주 문산, 영등포, 안양"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9983107635550971
+      }
+    },
+    {
+      "sampleId": "S10",
+      "targetWer": 0.1,
+      "actualWer": 0.09375,
+      "noisyText": "1955년 겨울에 경키투 파주 문산엑석 태어났다. 휴전선이 가까워 어릴 때 늘 댁남방송 소리를 들으며 잤다. 열아홉에 상경해 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다.",
+      "gold": {
+        "time": "1955년 겨울",
+        "location": "경기도 파주 문산"
+      },
+      "generated": {
+        "title": "파주에서 보낸 유년과 상경",
+        "time": "1955년 겨울, 어릴 때, 열아홉, 십 년, 1984년",
+        "location": "파주 문산, 휴전선, 영등포, 안양",
+        "memoir": "1955년 겨울, 파주 문산에서 태어났다. 휴전선이 가까워 어릴 때 늘 대남방송 소리를 들으며 잤다. 열아홉에 상경해 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고, 그곳에서 두 딸을 키웠다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '경키투 파주 문산엑석'이 '파주 문산'으로 자연스럽게 수정되어 원문의 오인식이 보정된 것으로 보인다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1955년 겨울, 어릴 때, 열아홉, 십 년, 1984년",
+          "location": "경키투 파주 문산엑석, 휴전선, 영등포, 안양"
+        },
+        "fromClean": {
+          "time": "1955년 겨울, 어릴 때, 열아홉, 십 년, 1984년",
+          "location": "파주 문산, 휴전선, 영등포, 안양"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 0.5,
+        "entity_mean": 0.75,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9973490741831886
+      }
+    },
+    {
+      "sampleId": "S10",
+      "targetWer": 0.2,
+      "actualWer": 0.1875,
+      "noisyText": "1955뗭 켜올에 경기도 파주 문산에서 태어났다. 휴천선이 가까워 어릴 때 늘 대남방송 소리를 들으명 잤다. 열아홉에 영등포의 한 방직공장에서 십 년을 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다.",
+      "gold": {
+        "time": "1955년 겨울",
+        "location": "경기도 파주 문산"
+      },
+      "generated": {
+        "title": "파주 문산에서의 어린 시절과 결혼",
+        "time": "1955년 가을, 1974년경, 1984년",
+        "location": "경기도 파주 문산, 영등포, 안양",
+        "memoir": "1955년 가을 경기도 파주 문산에서 태어났다. 휴전선이 가까워 어릴 때 늘 대남방송 소리를 들으며 잠들었다. 열아홉에 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '1955뗭 켜올에'가 '1955년 가을'로, '열아홉에'는 원문의 맥락과 '십 년을'을 통해 1974년경으로 추정 가능하며, '휴천선'이 '휴전선'으로 보정되어 더 신뢰할 수 있는 정보를 제공한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1955년, 1984년",
+          "location": "경기도 파주 문산, 영등포, 안양"
+        },
+        "fromClean": {
+          "time": "1955년 가을, 열아홉(1974년경), 1984년",
+          "location": "경기도 파주 문산, 영등포, 안양"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 0.5,
+        "entity_location": 1,
+        "entity_mean": 0.75,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9855384456271382
+      }
+    },
+    {
+      "sampleId": "S10",
+      "targetWer": 0.3,
+      "actualWer": 0.3125,
+      "noisyText": "1955뗘 겨온엡 경키 파주 문산에서 태어났다. 흉전선이 가꺼워 어릴 때 늘 대남방송 소리를 잤다. 연아홉에 상경해 영등포의 한 방직공장에써 씹 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸은 키웠다.",
+      "gold": {
+        "time": "1955년 겨울",
+        "location": "경기도 파주 문산"
+      },
+      "generated": {
+        "title": "파주에서 안양까지",
+        "time": "1955년, 어릴 때, 열아홉(1974년경), 십 년(1974년경~1984년경), 1984년",
+        "location": "경기도 파주 문산, 영등포, 안양",
+        "memoir": "1955년 경기도 파주 문산에서 태어났다. 휴전선이 가까워 어릴 때 늘 대남방송 소리를 들었다. 열아홉에 상경해 영등포의 한 방직공장에서 십 년을 일했다. 1984년에 결혼해 안양에 자리를 잡았고 그곳에서 두 딸을 키웠다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문이 원문의 오인식된 부분을 보정하여 시간과 장소 정보의 정확성을 높였다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1955년, 어릴 때, 연아홉(1963년경), 십 년(1963년경~1973년경), 1984년",
+          "location": "파주 문산, 영등포, 안양"
+        },
+        "fromClean": {
+          "time": "1955년, 열아홉 (1974년경), 1984년",
+          "location": "경기도 파주 문산, 영등포, 안양"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 0.5,
+        "entity_location": 1,
+        "entity_mean": 0.75,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9895457298294481
+      }
+    },
+    {
+      "sampleId": "S11",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "나는 1942년 일제강점기 말에 함경남도 원산에서 태어났다. 광복 뒤 아버지가 월남해 우리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 십오 년 동안 바다를 떠돌았다. 1980년에 배에서 내려 속초에서 건어물 가게를 열었다.",
+      "gold": {
+        "time": "1942년",
+        "location": "함경남도 원산"
+      },
+      "generated": {
+        "title": "원산 출생과 속초 정착",
+        "time": "1942년, 광복 뒤(후), 스물한 살, 15년(십오 년) 동안, 1980년",
+        "location": "함경남도 원산, 속초, 바다",
+        "memoir": "나는 1942년 일제강점기 말 함경남도 원산에서 태어났다. 광복 후 아버지가 월남하여 우리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 15년 동안 바다를 떠돌았다. 1980년에 배에서 내려 속초에서 건어물 가게를 열었다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 시간과 장소 정보가 일치하며, '뒤'와 '후', '십오 년'과 '15년'은 표현 방식의 차이일 뿐 내용상 동일하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1942년, 광복 뒤, 스물한 살, 십오 년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        },
+        "fromClean": {
+          "time": "1942년, 광복 후, 스물한 살, 15년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9975917503486701
+      }
+    },
+    {
+      "sampleId": "S11",
+      "targetWer": 0.1,
+      "actualWer": 0.0967741935483871,
+      "noisyText": "나는 1942년 일제강점기 말에 함경남도 원산에서 태어났다. 광복 튀 아버지가 월남해 우리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 십오 년 동안 바다릴 떠톨았다. 1980년에 배에서 내려 속초에서 건어물 가게를 열었다.",
+      "gold": {
+        "time": "1942년",
+        "location": "함경남도 원산"
+      },
+      "generated": {
+        "title": "원산 출생과 속초 정착",
+        "time": "1942년, 광복 후, 스물한 살, 15년 동안, 1980년",
+        "location": "함경남도 원산, 속초, 바다",
+        "memoir": "나는 1942년 일제강점기 말 함경남도 원산에서 태어났다. 광복 후 아버지가 월남하여 우리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 15년 동안 바다를 떠돌았다. 1980년에 배에서 내려 속초에서 건어물 가게를 열었다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1942년, 광복 후, 스물한 살, 15년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        },
+        "fromClean": {
+          "time": "1942년, 광복 후, 스물한 살, 15년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9975917503486701
+      }
+    },
+    {
+      "sampleId": "S11",
+      "targetWer": 0.2,
+      "actualWer": 0.1935483870967742,
+      "noisyText": "나는 1942뗭 일제가점기 말에 함경남도 원산에서 태어났다. 광복 뒤 아버지가 월남해 우리는 속초에 터를 잡았다. 스물한 살애 원양어선을 탔고 시오 년 동안 바다른 떠돌았다. 1980년에 배에사 내려 속초에서 건어물 가게를 열었다.",
+      "gold": {
+        "time": "1942년",
+        "location": "함경남도 원산"
+      },
+      "generated": {
+        "title": "원산 출생과 속초 정착",
+        "time": "1942년, 광복 뒤, 스물한 살, 15년 동안, 1980년",
+        "location": "함경남도 원산, 속초, 바다",
+        "memoir": "나는 1942년 일제강점기 말 함경남도 원산에서 태어났다. 광복 뒤 아버지가 월남하여 우리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고, 15년 동안 바다를 떠돌았다. 1980년에 배에서 내려 속초에서 건어물 가게를 열었다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '십오 년'이 '15년'으로 명확하게 수정된 것을 제외하고는 원문과 동일한 시간/장소 정보가 유지되어 정리문 기반의 후보 B가 더 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1942년, 광복 뒤, 스물한 살, 십오 년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        },
+        "fromClean": {
+          "time": "1942년, 광복 뒤, 스물한 살, 15년 동안, 1980년",
+          "location": "함경남도 원산, 속초, 바다"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.9978640058551751
+      }
+    },
+    {
+      "sampleId": "S11",
+      "targetWer": 0.3,
+      "actualWer": 0.2903225806451613,
+      "noisyText": "나는 1942년 일제강점기 말애 함경남도 원산에서 태어넜다. 광복 뒤 월남해 오리는 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 십우 녈 동안 파다를 떠돌았다. 배에서 내려 속초애서 건어물 가게를 열었다.",
+      "gold": {
+        "time": "1942년",
+        "location": "함경남도 원산"
+      },
+      "generated": {
+        "title": "원산 출생과 속초 정착",
+        "time": "1942년, 광복 뒤, 스물한 살, 십여 년 동안",
+        "location": "함경남도 원산, 속초, 바다",
+        "memoir": "나는 1942년 일제강점기 말 함경남도 원산에서 태어났다. 광복 뒤 월남하여 속초에 터를 잡았다. 스물한 살에 원양어선을 탔고 십여 년 동안 바다를 떠돌았다. 배에서 내려 속초에서 건어물 가게를 열었다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두에서 일치하는 시간 정보가 확인되었고, 장소 정보는 정리문의 '바다'가 원문의 '파다를'에서 파생된 맥락상 유효한 장소로 판단된다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1942년, 광복 뒤, 스물한 살, 십여 년 동안",
+          "location": "함경남도 원산, 속초"
+        },
+        "fromClean": {
+          "time": "1942년, 광복 뒤, 스물한 살, 십여 년 동안",
+          "location": "함경남도 원산, 속초, 바다"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.6666666666666666,
+        "semantic_similarity": 0.989608584666
+      }
+    },
+    {
+      "sampleId": "S12",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1968년에 서울 성동구 왕십리에서 태어나 그 동네에서 쭉 컸다. 1987년에 구로공단의 전자회사에 생산직으로 들어갔다. 1997년 외환위기 때 정리해고를 당했고, 그 뒤 마을버스 운전을 시작해 지금까지 하고 있다.",
+      "gold": {
+        "time": "1968년",
+        "location": "서울 성동구 왕십리"
+      },
+      "generated": {
+        "title": "나의 삶",
+        "time": "1968년, 1987년, 1997년",
+        "location": "서울 성동구 왕십리, 구로공단",
+        "memoir": "1968년 서울 성동구 왕십리에서 태어나 그 동네에서 성장했다. 1987년 구로공단 전자회사에 생산직으로 입사했다. 1997년 외환위기 때 정리해고를 당했고, 이후 마을버스 운전을 시작하여 현재까지 일하고 있다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        },
+        "fromClean": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9931478816737058
+      }
+    },
+    {
+      "sampleId": "S12",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "1968뗜애 서울 성동구 왕십리에서 태어나 그 동네에서 쭉 컸다. 1987년에 구로공단의 전자회사에 생산직으로 들어갔다. 1997녕 외환위기 때 정리해고를 당했고, 그 뒤 마을버스 운전일 시작해 지금까지 하고 있다.",
+      "gold": {
+        "time": "1968년",
+        "location": "서울 성동구 왕십리"
+      },
+      "generated": {
+        "title": "나의 삶의 궤적",
+        "time": "1968년, 1987년, 1997년",
+        "location": "서울 성동구 왕십리, 구로공단",
+        "memoir": "1968년 서울 성동구 왕십리에서 태어나 그 동네에서 성장했습니다. 1987년 구로공단 전자회사 생산직으로 입사했습니다. 1997년 외환위기 당시 정리해고를 당했고, 이후 마을버스 운전을 시작해 현재까지 일하고 있습니다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 추가된 '현재'는 시점이 아니라 기간을 나타내므로, 후보 A의 시간과 장소가 더 신뢰할 수 있습니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        },
+        "fromClean": {
+          "time": "1968년, 1987년, 1997년, 현재",
+          "location": "서울 성동구 왕십리, 구로공단"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.994777948337295
+      }
+    },
+    {
+      "sampleId": "S12",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "1968녕 서울 성동구 왕십릭엑서 태어너 그 동네에서 쭉 컸다. 1987년에 구로공단의 전자회사에 생산직으로 들어갔다. 1997년 외환위기 때 정리해고를 당했코, 그 뒤 마을버스 운전을 시작해 지금깝지 하고 있다.",
+      "gold": {
+        "time": "1968년",
+        "location": "서울 성동구 왕십리"
+      },
+      "generated": {
+        "title": "나의 삶",
+        "time": "1968년, 1987년, 1997년, 지금까지",
+        "location": "서울 성동구 왕십리, 구로공단",
+        "memoir": "1968년 서울 성동구 왕십리에서 태어나 그 동네에서 쭉 컸다. 1987년에 구로공단의 전자회사에 생산직으로 들어갔다. 1997년 외환위기 때 정리해고를 당했고, 그 뒤 마을버스 운전을 시작해 지금까지 하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '지금깝지'가 '지금까지'로 바르게 교정되어, 시간 정보가 더 정확하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        },
+        "fromClean": {
+          "time": "1968년, 1987년, 1997년, 지금까지",
+          "location": "서울 성동구 왕십리, 구로공단"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9997325039144445
+      }
+    },
+    {
+      "sampleId": "S12",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "1968녈 서울 성동구 와씹리에 태어나 그 동네에서 쭉 컸다. 1987년에 구로공단의 들어갔다. 1997년 외환윕기 때 정리해고를 마을버스 운전을 시작해 지금까지 하고 있다.",
+      "gold": {
+        "time": "1968년",
+        "location": "서울 성동구 왕십리"
+      },
+      "generated": {
+        "title": "성장과 직업 변경의 기록",
+        "time": "1968년, 1987년, 1997년",
+        "location": "서울 성동구 왕십리, 구로공단",
+        "memoir": "1968년 서울 성동구 왕십리에서 태어나 그 동네에서 성장했다. 1987년에 구로공단에 들어갔다. 1997년 외환 위기 때 정리해고를 당해 마을버스 운전을 시작했고, 지금까지 이 일을 하고 있다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        },
+        "fromClean": {
+          "time": "1968년, 1987년, 1997년",
+          "location": "서울 성동구 왕십리, 구로공단"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9876418140776514
+      }
+    },
+    {
+      "sampleId": "S13",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "고향은 경상남도 통영 욕지도라는 섬이다. 1951년에 그 섬에서 태어났다. 초등학교를 마치고 뭍으로 나와 마산의 친척집에서 중학교를 다녔다. 1972년에 부산으로 가 신발공장에 취직했고, 1995년에 통영으로 돌아와 멸치잡이 배를 샀다.",
+      "gold": {
+        "time": "1951년",
+        "location": "경상남도 통영 욕지도"
+      },
+      "generated": {
+        "title": "통영 욕지도에서 멸치잡이까지",
+        "time": "1951년, 초등학교 졸업 후, 1972년, 1995년",
+        "location": "경상남도 통영 욕지도, 마산, 부산, 통영",
+        "memoir": "고향은 경상남도 통영 욕지도라는 섬이다. 1951년에 그 섬에서 태어났다. 초등학교를 마치고 뭍으로 나와 마산의 친척집에서 중학교를 다녔다. 1972년에 부산으로 가 신발공장에 취직했고, 1995년에 통영으로 돌아와 멸치잡이 배를 샀다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문의 내용이 동일하여 두 후보 모두 신뢰할 수 있으며, 시간과 장소 정보가 명확하게 제시되어 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1951년, 초등학교 졸업 후, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산, 통영"
+        },
+        "fromClean": {
+          "time": "1951년, 초등학교 졸업 후 (시기 알 수 없음), 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산, 통영"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9999999999999998
+      }
+    },
+    {
+      "sampleId": "S13",
+      "targetWer": 0.1,
+      "actualWer": 0.10714285714285714,
+      "noisyText": "코향은 경상나 통영 욕지도라는 섬이다. 1951년에 그 섬에서 태어났다. 초등학교를 마치고 뭍으로 나와 마산의 친척집에서 중학교를 1972년에 부산으로 가 신발공장에 취직했고, 1995년에 통영으로 돌아와 멸치잡이 배를 샀다.",
+      "gold": {
+        "time": "1951년",
+        "location": "경상남도 통영 욕지도"
+      },
+      "generated": {
+        "title": "욕지도에서 통영까지",
+        "time": "1951년, 1972년, 1995년",
+        "location": "경상남도 통영 욕지도, 마산, 부산, 통영",
+        "memoir": "나는 경상남도 통영 욕지도에서 1951년에 태어났다. 초등학교를 마치고 마산의 친척집에서 중학교를 다녔다. 1972년에 부산으로 가서 신발 공장에 취직했다. 1995년에 통영으로 돌아와 멸치잡이 배를 샀다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 1951년, 1972년, 1995년을 명확히 언급하며, 위치는 통영 욕지도, 마산, 부산이 공통으로 등장하고 원문 마지막에 통영으로 돌아온다는 내용이 있어 후보 B의 장소값이 더 정확합니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1951년, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산"
+        },
+        "fromClean": {
+          "time": "1951년, 초등학교 졸업 후, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산, 통영"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9763844640885617
+      }
+    },
+    {
+      "sampleId": "S13",
+      "targetWer": 0.2,
+      "actualWer": 0.21428571428571427,
+      "noisyText": "고향은 경상남도 통영 욕지도라는 섬이다. 1951년에 크 태어났다. 마치고 뭍으로 나와 마산의 중학교를 다녔다. 1972년에 부산으로 가 신발공장에 취직했고, 1995년에 톤연으루 돌아왑 멸치잡이 배를 샀다.",
+      "gold": {
+        "time": "1951년",
+        "location": "경상남도 통영 욕지도"
+      },
+      "generated": {
+        "title": "욕지도에서 마산, 부산, 그리고 다시 욕지도",
+        "time": "1951년, 1972년, 1995년",
+        "location": "경상남도 통영 욕지도, 마산, 부산",
+        "memoir": "고향은 경상남도 통영 욕지도라는 섬이다. 1951년에 태어났다. 욕지도를 마치고 뭍으로 나와 마산의 중학교를 다녔다. 1972년에 부산으로 가 신발공장에 취직했고, 1995년에 통영으로 돌아와 멸치잡이 배를 샀다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1951년, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산"
+        },
+        "fromClean": {
+          "time": "1951년, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9953279987316359
+      }
+    },
+    {
+      "sampleId": "S13",
+      "targetWer": 0.3,
+      "actualWer": 0.2857142857142857,
+      "noisyText": "고향을 경상남도 통영 욕지도라는 섬이다. 1951녈애 섬에서 태어났다. 초등학교를 마치고 뭍으로 머산의 친척집에서 중학교를 다녔다. 1972년에 부산으로 가 신발공장에 1995년에 통연으롱 돌아와 멸치잡이 배릴 샀다.",
+      "gold": {
+        "time": "1951년",
+        "location": "경상남도 통영 욕지도"
+      },
+      "generated": {
+        "title": "통영 욕지도에서 부산까지의 삶",
+        "time": "1951년, 초등학교 졸업 후, 1972년, 1995년",
+        "location": "경상남도 통영 욕지도, 마산, 부산, 통영",
+        "memoir": "경상남도 통영 욕지도라는 섬이 고향이다. 1951년에 섬에서 태어났다. 초등학교를 마치고 육지인 마산의 친척집에서 중학교를 다녔다. 1972년에 부산으로 가 신발 공장에서 일했다. 1995년에 통영으로 돌아와 멸치잡이 배를 샀다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문이 원문의 오타를 수정하고 맥락을 보강하여 더 정확한 시간과 장소를 제공한다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1951년, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 부산, (부산) 신발공장"
+        },
+        "fromClean": {
+          "time": "1951년, 초등학교 졸업 후, 1972년, 1995년",
+          "location": "경상남도 통영 욕지도, 마산, 부산, 통영"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9940156490288947
+      }
+    },
+    {
+      "sampleId": "S14",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "나는 1975년 대구 달성군에서 태어났다. 아홉 살에 부모님이 이혼해 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 학원 강사를 했다. 2013년에 다시 경주로 내려와 작은 서점을 차렸고 지금도 운영하고 있다.",
+      "gold": {
+        "time": "1975년",
+        "location": "대구 달성군"
+      },
+      "generated": {
+        "title": "대구에서 나고 경주에서 자라다",
+        "time": "1975년, 아홉 살(1984년경), 2000년, 2013년, 현재",
+        "location": "대구 달성군, 경주, 서울",
+        "memoir": "나는 1975년 대구 달성군에서 태어났다. 아홉 살에 부모님이 이혼하여 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 학원 강사를 했다. 2013년에 다시 경주로 내려와 작은 서점을 차렸고 지금도 운영하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문 모두 같은 정보를 담고 있으며, 후보 B의 '아홉 살(1984년경)'과 '현재'는 더 구체적이고 정확한 표현이다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1975년, 아홉 살, 2000년, 2013년, 지금",
+          "location": "대구 달성군, 경주, 서울"
+        },
+        "fromClean": {
+          "time": "1975년, 아홉 살(1984년경), 2000년, 2013년, 현재",
+          "location": "대구 달성군, 경주, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9996838652970355
+      }
+    },
+    {
+      "sampleId": "S14",
+      "targetWer": 0.1,
+      "actualWer": 0.10344827586206896,
+      "noisyText": "나는 1975년 대구 달성곤에써 아홉 살에 부모님이 이혼해 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 학원 강사를 했다. 2013년에 다시 경주로 내려와 작은 서점을 차렸고 지금도 운영합고 있다.",
+      "gold": {
+        "time": "1975년",
+        "location": "대구 달성군"
+      },
+      "generated": {
+        "title": "대구, 경주, 서울 그리고 서점",
+        "time": "1975년, 2000년, 2013년, 현재",
+        "location": "대구 달성군, 경주, 서울",
+        "memoir": "나는 1975년 대구 달성군에서 태어났고, 아홉 살에 부모님이 이혼하여 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 학원 강사로 일했다. 2013년에 다시 경주로 내려와 작은 서점을 차렸고 지금도 운영하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '아홉 살'은 1975년에 태어났다는 정보와 연결되어 특정 시점을 나타내지만, 후보 A의 '현재'가 문맥상 '지금도 운영하고 있다'는 표현을 더 포괄적으로 나타내므로 더 적절하다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1975년, 2000년, 2013년, 현재",
+          "location": "대구 달성군, 경주, 서울"
+        },
+        "fromClean": {
+          "time": "1975년, 아홉 살, 2000년, 2013년, 지금",
+          "location": "대구 달성군, 경주, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9986301473419618
+      }
+    },
+    {
+      "sampleId": "S14",
+      "targetWer": 0.2,
+      "actualWer": 0.20689655172413793,
+      "noisyText": "나는 1975년 대구 달성군에서 태어났다. 아홉 설에 붑모님이 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 강사를 했다. 2013녕에 다시 경주로 내려와 서점을 차렸고 지금도 운영하고 있다.",
+      "gold": {
+        "time": "1975년",
+        "location": "대구 달성군"
+      },
+      "generated": {
+        "title": "대구에서 나고 경주와 서울을 오가며",
+        "time": "1975년, 아홉 살, 2000년, 2013년, 지금",
+        "location": "대구 달성군, 경주, 서울",
+        "memoir": "나는 1975년 대구 달성군에서 태어났다. 아홉 살에 부모님과 함께 외갓집이 있는 경주로 가서 자랐다. 2000년에 서울로 올라와 강사로 일했다. 2013년에 다시 경주로 내려와 서점을 차렸고, 지금도 운영하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '아홉 설'이 '아홉 살'로 정확하게 정정되어 더 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1975년, 아홉 설, 2000년, 2013년, 지금",
+          "location": "대구 달성군, 경주, 서울"
+        },
+        "fromClean": {
+          "time": "1975년, 아홉 살, 2000년, 2013년, 지금",
+          "location": "대구 달성군, 경주, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9772987941576292
+      }
+    },
+    {
+      "sampleId": "S14",
+      "targetWer": 0.3,
+      "actualWer": 0.3103448275862069,
+      "noisyText": "나는 1975년 대구 달성군에서 태어땄다. 붑모님이 이혼해 왜갓집이 읐는 경주에서 자랐다. 2000년에 서울로 올라와 강사를 해다. 2013년에 다스 경주로 내려와 작은 서점을 차렸고 지금도 운영하고 있다.",
+      "gold": {
+        "time": "1975년",
+        "location": "대구 달성군"
+      },
+      "generated": {
+        "title": "대구에서 나고 경주에서 자라",
+        "time": "1975년, 2000년, 2013년, 현재",
+        "location": "대구 달성군, 경주, 서울",
+        "memoir": "나는 1975년 대구 달성군에서 태어났다. 부모님이 이혼해 외갓집이 있는 경주에서 자랐다. 2000년에 서울로 올라와 강사 생활을 했다. 2013년에 다시 경주로 내려와 작은 서점을 차렸고 지금도 운영하고 있다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문이 원문의 '지금도'를 '현재'로 명확히 표현했고, 두 텍스트 모두 동일한 장소 정보를 제공하므로 정리문 기반의 B가 더 신뢰할 수 있습니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1975년, 2000년, 2013년",
+          "location": "대구 달성군, 경주, 서울, 경주"
+        },
+        "fromClean": {
+          "time": "1975년, 2000년, 2013년, 현재",
+          "location": "대구 달성군, 경주, 서울"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.8333333333333334,
+        "semantic_similarity": 0.9861101522569351
+      }
+    },
+    {
+      "sampleId": "S15",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "1947년에 전라북도 남원 운봉에서 태어났다. 지리산 자락이라 빨치산 토벌로 온 마을이 소개되던 기억이 난다. 열여섯에 전주로 나와 방앗간 일을 배웠다. 1969년에 군산으로 옮겨 정미소를 열었고 마흔 해 넘게 그 일을 했다.",
+      "gold": {
+        "time": "1947년",
+        "location": "전라북도 남원 운봉"
+      },
+      "generated": {
+        "title": "정미소를 운영한 나의 삶",
+        "time": "1947년, 열여섯(1963년경), 1969년, 마흔 해 넘게(2009년경까지)",
+        "location": "전라북도 남원 운봉, 지리산 자락, 전주, 군산",
+        "memoir": "1947년 전라북도 남원 운봉에서 태어났다. 지리산 자락이라 빨치산 토벌로 온 마을이 소개되던 기억이 있다. 열여섯에 전주로 나와 방앗간 일을 배웠다. 1969년에 군산으로 옮겨 정미소를 열었고 사십 년 넘게 그 일을 했다."
+      },
+      "corrected": true,
+      "correctionReason": "원문과 정리문의 내용이 거의 일치하며, '마흔 해 넘게'와 '사십 년 넘게'는 동일한 의미로 '마흔 해 넘게(2009년경까지)'가 더 구체적이다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1947년, 열여섯(1963년경), 1969년, 마흔 해 넘게(2009년경까지)",
+          "location": "전라북도 남원 운봉, 지리산 자락, 전주, 군산"
+        },
+        "fromClean": {
+          "time": "1947년, 열여섯(1963년경), 1969년, 사십 년 넘게",
+          "location": "전라북도 남원 운봉, 지리산 자락, 전주, 군산"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9983457431420647
+      }
+    },
+    {
+      "sampleId": "S15",
+      "targetWer": 0.1,
+      "actualWer": 0.0967741935483871,
+      "noisyText": "1947년에 전라북도 남원 운봉에서 태어났다. 지리산 자락이라 뻘치산 토벌로 온 마을이 소개되던 기억이 난다. 열여섯에 전주로 나와 방앗간 일을 배웠다. 1969년에 군산으로 욺겨 정미소를 열었곱 마흔 해 넘게 그 일을 했다.",
+      "gold": {
+        "time": "1947년",
+        "location": "전라북도 남원 운봉"
+      },
+      "generated": {
+        "title": "남원 운봉에서 군산 정미소까지",
+        "time": "1947년, 1963년경, 1969년, 마흔 해 넘게",
+        "location": "전라북도 남원 운봉, 지리산 자락, 전주, 군산",
+        "memoir": "1947년 전라북도 남원 운봉에서 태어났다. 지리산 자락이라 빨치산 토벌로 온 마을이 소개되던 기억이 난다. 열여섯에 전주로 나와 방앗간 일을 배웠다. 1969년에 군산으로 옮겨 정미소를 열었고 마흔 해 넘게 그 일을 했다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '열여섯'을 1963년경으로 유추한 것이 자연스럽고, '마흔 해 넘게'는 기간을 나타내는 중요한 정보이므로 후보 B가 더 신뢰할 수 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1947년, 1969년",
+          "location": "전라북도 남원 운봉, 지리산, 전주, 군산"
+        },
+        "fromClean": {
+          "time": "1947년, 열여섯(1963년경), 1969년, 마흔 해 넘게",
+          "location": "전라북도 남원 운봉, 지리산 자락, 전주, 군산"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9993577850255769
+      }
+    },
+    {
+      "sampleId": "S15",
+      "targetWer": 0.2,
+      "actualWer": 0.1935483870967742,
+      "noisyText": "1947년에 전라북도 남원 운봉에서 지리산 자락이라 빨치산 토벌로 온 마을이 소개되던 기억이 난다. 연여섯에 전주로 나와 방앗간 일을 배웠다. 1969년애 옮겨 정미소를 연었고 마흔 넘게 그 일을 했다.",
+      "gold": {
+        "time": "1947년",
+        "location": "전라북도 남원 운봉"
+      },
+      "generated": {
+        "title": "남원 운봉과 전주 정미소",
+        "time": "1947년, 여섯 살, 1969년, 마흔 넘게",
+        "location": "전라북도 남원 운봉, 지리산 자락, 전주",
+        "memoir": "1947년에 전라북도 남원 운봉에서 지리산 자락이라 빨치산 토벌로 온 마을이 소개되던 기억이 난다. 여섯 살에 전주로 나와 방앗간 일을 배웠다. 1969년에 옮겨 정미소를 열었고 마흔 넘게 그 일을 했다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '연여섯'이 '여섯 살'로 명확하게 보정되어 시간 정보의 신뢰성이 높아졌고, 위치 정보는 두 후보 모두 동일한 내용을 담고 있다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1947년, 연여섯, 1969년, 마흔 넘게",
+          "location": "전라북도 남원 운봉, 지리산, 전주"
+        },
+        "fromClean": {
+          "time": "1947년, 여섯 살(1947년 기준), 1969년, 마흔 넘게(1969년 기준)",
+          "location": "전라북도 남원 운봉, 지리산 자락, 전주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9544371784747958
+      }
+    },
+    {
+      "sampleId": "S15",
+      "targetWer": 0.3,
+      "actualWer": 0.2903225806451613,
+      "noisyText": "1947년에 전라북도 땀 운봉에서 태어났다. 자락이라 빨치선 토벌로 온 마을이 소개되던 기억이 날다. 열여섯에 전주로 나와 방앗간 일일 배웠다. 1969년에 군산으로 열었고 마흔 행 넘게 일을 했다.",
+      "gold": {
+        "time": "1947년",
+        "location": "전라북도 남원 운봉"
+      },
+      "generated": {
+        "title": "운봉에서 군산까지",
+        "time": "1947년, 열여섯(1963년경), 1969년, 마흔 해 넘게(2009년경까지)",
+        "location": "전라북도 운봉, 전주, 군산",
+        "memoir": "1947년에 전라북도 운봉에서 태어났다. 빨치산 토벌로 온 마을이 소개되던 기억이 난다. 열여섯에 전주로 나와 방앗간 일을 배웠다. 1969년에 군산으로 옮겨 마흔 해 넘게 일했다."
+      },
+      "corrected": true,
+      "correctionReason": "원문 '땀 운봉'은 '남원 운봉'의 오인식으로 보이나, 정리문에서 '운봉'으로 명확해졌고, 시간 정보는 두 후보 모두 동일하게 신뢰할 수 있습니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1947년, 열여섯(1963년경), 1969년, 마흔 해 넘게(2009년경까지)",
+          "location": "전라북도 남원 운봉, 전주, 군산"
+        },
+        "fromClean": {
+          "time": "1947년, 열여섯, 1969년, 마흔 해 넘게",
+          "location": "전라북도 운봉, 전주, 군산"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 0,
+        "entity_mean": 0.5,
+        "event_order_accuracy": 1,
+        "semantic_similarity": 0.9679499969928386
+      }
+    },
+    {
+      "sampleId": "S16",
+      "targetWer": 0,
+      "actualWer": 0,
+      "noisyText": "내가 태어난 것은 1962년 제주시 삼도동에서다. 다섯 살 때 아버지가 돌아가셔서 어머니가 해녀 물질로 우리를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당을 전전했다. 2010년에 제주로 돌아와 게스트하우스를 열었다.",
+      "gold": {
+        "time": "1962년",
+        "location": "제주시 삼도동"
+      },
+      "generated": {
+        "title": "제주시 삼도동에서 서울, 그리고 다시 제주로",
+        "time": "1962년, 다섯 살 때, 1981년, 2010년",
+        "location": "제주시 삼도동, 서울, 제주",
+        "memoir": "나는 1962년 제주시 삼도동에서 태어났다. 다섯 살 때 아버지가 돌아가시고 어머니가 해녀 물질로 우리를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당에서 일했다. 2010년에 제주로 돌아와 게스트하우스를 열었다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1962년, 다섯 살 때, 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        },
+        "fromClean": {
+          "time": "1962년, 다섯 살 때, 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9950972297686124
+      }
+    },
+    {
+      "sampleId": "S16",
+      "targetWer": 0.1,
+      "actualWer": 0.1111111111111111,
+      "noisyText": "내가 태어난 것은 1962년 제주시 삼도둥애서다. 다섯 살 때 아버지가 돌아가셔서 어머니가 해녀 물질로 키웠다. 1981년에 서울로 올라가 봉제공장과 식당을 전전했다. 2010년에 제주로 돌아와 게스드하우스를 열었다.",
+      "gold": {
+        "time": "1962년",
+        "location": "제주시 삼도동"
+      },
+      "generated": {
+        "title": "성장과 귀향",
+        "time": "1962년, 다섯 살 때(1966년경), 1981년, 2010년",
+        "location": "제주시 삼도동, 서울, 제주",
+        "memoir": "나는 1962년 제주시 삼도동에서 태어났다. 다섯 살 때 아버지가 돌아가셔서 어머니가 해녀 물질로 나를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당에서 일했다. 2010년에 제주로 돌아와 게스트하우스를 열었다."
+      },
+      "corrected": true,
+      "correctionReason": "정리문에서 '다섯 살 때'의 계산이 1967년경으로 잘못되었지만, 원문의 1966년경이 맥락상 더 정확하며, 나머지 시간과 장소 정보는 원문과 정리문 모두 일치하여 신뢰할 수 있습니다.",
+      "candidates": {
+        "fromRaw": {
+          "time": "1962년, 다섯 살 때(1966년경), 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        },
+        "fromClean": {
+          "time": "1962년, 다섯 살 때 (1967년경), 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9945173161142851
+      }
+    },
+    {
+      "sampleId": "S16",
+      "targetWer": 0.2,
+      "actualWer": 0.18518518518518517,
+      "noisyText": "네가 태어난 것은 1962뗠 제주시 삼도동에서다. 다섯 살 때 아버지가 돌아가셔서 어머니가 해뗘 물질로 오리를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당은 전전했다. 2010년에 제주로 돌아와 게스트하우스를 열었다.",
+      "gold": {
+        "time": "1962년",
+        "location": "제주시 삼도동"
+      },
+      "generated": {
+        "title": "삶의 궤적",
+        "time": "1962년, 다섯 살 때, 1981년, 2010년",
+        "location": "제주시 삼도동, 서울, 제주",
+        "memoir": "1962년 제주시 삼도동에서 태어났다. 다섯 살 때 아버지가 돌아가셨고, 어머니는 물질로 나를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당에서 일했다. 2010년에 제주로 돌아와 게스트하우스를 열었다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1962년, 다섯 살 때, 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        },
+        "fromClean": {
+          "time": "1962년, 다섯 살 때, 1981년, 2010년",
+          "location": "제주시 삼도동, 서울, 제주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9880856702499026
+      }
+    },
+    {
+      "sampleId": "S16",
+      "targetWer": 0.3,
+      "actualWer": 0.2962962962962963,
+      "noisyText": "내카 태어난 것은 1962년 제주시 삼도동에서다. 다섯 살 때 돌아가셔서 어머니가 헤녀 물질로 우르를 키웠다. 1981년에 서울루 올라가 봉제공장과 식당을 전전했다. 제주로 돌아왑 게스트하우스를",
+      "gold": {
+        "time": "1962년",
+        "location": "제주시 삼도동"
+      },
+      "generated": {
+        "title": "제주 그리고 서울",
+        "time": "1962년, 다섯 살 때, 1981년",
+        "location": "제주시 삼도동, 서울, 제주",
+        "memoir": "나는 1962년 제주시 삼도동에서 태어났다. 다섯 살 때 아버지가 돌아가시고 어머니가 해녀 물질로 우리를 키웠다. 1981년에 서울로 올라가 봉제공장과 식당을 전전했다. 제주로 돌아와 게스트하우스를 운영했다."
+      },
+      "corrected": false,
+      "correctionReason": null,
+      "candidates": {
+        "fromRaw": {
+          "time": "1962년, 다섯 살 때, 1981년",
+          "location": "제주시 삼도동, 서울, 제주"
+        },
+        "fromClean": {
+          "time": "1962년, 다섯 살 때, 1981년",
+          "location": "제주시 삼도동, 서울, 제주"
+        }
+      },
+      "error": null,
+      "metrics": {
+        "entity_time": 1,
+        "entity_location": 1,
+        "entity_mean": 1,
+        "event_order_accuracy": 0.5,
+        "semantic_similarity": 0.9899713625231933
+      }
+    }
+  ]
+}

@@ -1,2 +1,3 @@
 results/phase1_raw_partial.json
-results/phase1_run.log
+results/phase2_raw_partial.json
+results/*_run.log
