@@ -1,0 +1,46 @@
+{
+  "model": "gemini-2.5-flash",
+  "generatedAt": "2026-09-06T19-13-43-811Z",
+  "summary": [
+    {
+      "targetWer": 0,
+      "n": 26,
+      "meanActualWer": 0,
+      "entity_time": 1,
+      "entity_location": 1,
+      "entity_mean": 1,
+      "event_order_accuracy": 0.8076923076923077,
+      "semantic_similarity": 0.9998198737723691
+    },
+    {
+      "targetWer": 0.1,
+      "n": 26,
+      "meanActualWer": 0.10708562609470951,
+      "entity_time": 0.9807692307692307,
+      "entity_location": 0.9230769230769231,
+      "entity_mean": 0.9519230769230769,
+      "event_order_accuracy": 0.8205128205128205,
+      "semantic_similarity": 0.9935465446733691
+    },
+    {
+      "targetWer": 0.2,
+      "n": 26,
+      "meanActualWer": 0.1984169096039727,
+      "entity_time": 0.9807692307692307,
+      "entity_location": 0.9423076923076923,
+      "entity_mean": 0.9615384615384616,
+      "event_order_accuracy": 0.7884615384615383,
+      "semantic_similarity": 0.987523796193316
+    },
+    {
+      "targetWer": 0.3,
+      "n": 26,
+      "meanActualWer": 0.3012099532810998,
+      "entity_time": 0.9615384615384616,
+      "entity_location": 0.8076923076923077,
+      "entity_mean": 0.8846153846153846,
+      "event_order_accuracy": 0.8076923076923077,
+      "semantic_similarity": 0.9833852923246311
+    }
+  ]
+}

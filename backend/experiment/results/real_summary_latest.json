@@ -1,0 +1,84 @@
+{
+  "model": "gemini-2.5-flash",
+  "generatedAt": "2026-09-06T21-14-59-641Z",
+  "byCond": [
+    {
+      "condition": "clean",
+      "n": 26,
+      "wer": 0.10129626276582576,
+      "cer": 0.014383530004232908,
+      "base_entity_mean": 1,
+      "prop_entity_mean": 1,
+      "base_entity_loc": 1,
+      "prop_entity_loc": 1,
+      "base_sim": 0.9963503068363807,
+      "prop_sim": 0.9946223727818513,
+      "correction_rate": 0.5384615384615384
+    },
+    {
+      "condition": "noisy_mild",
+      "n": 26,
+      "wer": 0.1377106232206962,
+      "cer": 0.025715882751353388,
+      "base_entity_mean": 0.9519230769230769,
+      "prop_entity_mean": 0.9615384615384616,
+      "base_entity_loc": 0.9038461538461539,
+      "prop_entity_loc": 0.9230769230769231,
+      "base_sim": 0.9911504878188679,
+      "prop_sim": 0.9902537172739959,
+      "correction_rate": 0.6538461538461539
+    },
+    {
+      "condition": "noisy_mid",
+      "n": 26,
+      "wer": 0.21431065482356212,
+      "cer": 0.06662753408611931,
+      "base_entity_mean": 0.8653846153846154,
+      "prop_entity_mean": 0.875,
+      "base_entity_loc": 0.8076923076923077,
+      "prop_entity_loc": 0.8269230769230769,
+      "base_sim": 0.9788444778618864,
+      "prop_sim": 0.9776209433050306,
+      "correction_rate": 0.5769230769230769
+    },
+    {
+      "condition": "noisy_harsh",
+      "n": 26,
+      "wer": 0.5151026897848594,
+      "cer": 0.29434849519446166,
+      "base_entity_mean": 0.5769230769230769,
+      "prop_entity_mean": 0.5769230769230769,
+      "base_entity_loc": 0.46153846153846156,
+      "prop_entity_loc": 0.46153846153846156,
+      "base_sim": 0.8842010492460202,
+      "prop_sim": 0.8828113702682858,
+      "correction_rate": 0.5384615384615384
+    }
+  ],
+  "byBin": [
+    {
+      "bin": "0–2%",
+      "n": 36,
+      "base_entity_mean": 0.9930555555555556,
+      "prop_entity_mean": 1
+    },
+    {
+      "bin": "2–6%",
+      "n": 30,
+      "base_entity_mean": 0.8916666666666667,
+      "prop_entity_mean": 0.9
+    },
+    {
+      "bin": "6–15%",
+      "n": 18,
+      "base_entity_mean": 0.8194444444444444,
+      "prop_entity_mean": 0.8194444444444444
+    },
+    {
+      "bin": "15%+",
+      "n": 20,
+      "base_entity_mean": 0.55,
+      "prop_entity_mean": 0.55
+    }
+  ]
+}

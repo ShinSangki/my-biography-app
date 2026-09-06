@@ -23,6 +23,7 @@ import {
 } from "./repositories/recordingRepository.js";
 import { transcribeAudioFromFile } from "./services/geminiSTTService.js";
 import { generateMemoirText } from "./services/geminiGENERATEService.js";
+import { generateMemoirWithSelectiveCorrection } from "./services/selectiveCorrectionService.js";
 import memoirRoutes from "./services/memoirRoutes.js";
 // *~ 기능을 유지하던 코드입니다*
 // import memoirRoutes from "./services/memoirRoutes.js";
@@ -227,6 +228,47 @@ app.post("/generate", async (req, res, next) => {
       location: generated.location,
       transcript: text,
       audioPath: audioPath
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * [프로토타입] 자서전 초안 생성 - 제안 방식 (논문 III장)
+ * 기존 /generate(기준 방식, 단일 호출)와 요청/응답 형태를 동일하게 맞춰서
+ * 실험에서 endpoint만 바꿔 baseline과 proposed를 그대로 비교할 수 있게 했다.
+ * 차이점: 시간/장소 추출을 문체 정리와 분리된 단계로 수행하고, 원문 기반 추출값과
+ * 정리문 기반 추출값이 불일치할 때만 선택적으로 재보정한다.
+ * 응답의 corrected/candidates 필드는 실험 로그용(보정 발동 여부·빈도 집계)이며,
+ * 프런트엔드는 기존과 동일하게 memoir/title/time/location만 사용하면 된다.
+ */
+app.post("/generate-v2", async (req, res, next) => {
+  try {
+    const { text, audioPath } = req.body as { text?: string; audioPath?: string };
+
+    if (!text || !text.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "text 가 필요합니다."
+      });
+    }
+
+    const generated = await generateMemoirWithSelectiveCorrection(text);
+
+    return res.json({
+      success: true,
+      memoir: generated.memoir,
+      content: generated.memoir,
+      title: generated.title,
+      time: generated.time,
+      location: generated.location,
+      transcript: text,
+      audioPath: audioPath,
+      // 아래 두 필드는 baseline(/generate)에는 없는, 실험 분석용 추가 정보
+      corrected: generated.corrected,
+      correctionReason: generated.reason,
+      candidates: generated.candidates
     });
   } catch (error) {
     next(error);
