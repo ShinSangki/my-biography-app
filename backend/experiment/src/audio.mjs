@@ -18,6 +18,12 @@ export const CONDITIONS = {
       "[0:a]highpass=f=300,lowpass=f=3400,volume=1.0[s];[1:a]volume=0.35[n];[s][n]amix=inputs=2:duration=first:dropout_transition=0",
     noise: "anoisesrc=d=180:c=pink:a=1",
   },
+  // 중간 대역: mild 와 harsh 사이 (실측 CER 10~25% 목표)
+  noisy_mid: {
+    filter:
+      "[0:a]highpass=f=320,lowpass=f=3200,atempo=1.08,volume=1.0[s];[1:a]volume=0.55[n];[s][n]amix=inputs=2:duration=first:dropout_transition=0",
+    noise: "anoisesrc=d=180:c=pink:a=1",
+  },
   // 강한 배경 소음 + 빠른/뭉개진 발화 (고령자 구술 + 현장 소음)
   noisy_harsh: {
     filter:
